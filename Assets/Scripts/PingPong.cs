@@ -15,9 +15,6 @@ public class PingPong : MonoBehaviour
 
     void Awake()
     {
-        if (initialStartPosition == null) Debug.LogError("Field 'startPosition' is null!");
-        if (initialEndPosition == null) Debug.LogError("Field 'endPosition' is null!");
-
         if (moveDirection == MoveDirections.Start2End)
             currentEndPosition = initialEndPosition;
         else
