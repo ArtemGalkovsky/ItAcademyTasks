@@ -37,14 +37,12 @@ public class PingPong : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, currentEndPosition, Time.deltaTime * speed);
     }
 
-    private bool ChangeDirectionIfNeeded()
+    private void ChangeDirectionIfNeeded()
     {
         if (Vector3.Distance(transform.position, currentEndPosition) < distanceBetweenVectorsToChangeDirection)
         {
             ChangeEndPosition();
         }
-
-        return false;
     }
 
     private void ChangeEndPosition()
