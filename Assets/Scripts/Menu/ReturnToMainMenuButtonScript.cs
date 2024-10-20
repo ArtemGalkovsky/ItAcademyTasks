@@ -12,8 +12,6 @@ public class ReturnToMainMenuButtonScript : MonoBehaviour
         _backButton = GetComponent<Button>();
         
         SetBackButtonLogic(parentCanvas, mainMenu);
-
-        parentCanvas.gameObject.SetActive(false);
     }
 
     private void SetBackButtonLogic(Canvas currentMenu, MainMenu mainMenu)

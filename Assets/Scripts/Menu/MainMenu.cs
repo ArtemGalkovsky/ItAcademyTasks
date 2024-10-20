@@ -35,6 +35,11 @@ public class MainMenu : MonoBehaviour
     private void Start()
     {
         InitializeBackButtons();
+
+        ActionPerformer.PerformActionOnObjects<Menu>(_menus, menu =>
+        {
+            menu.MenuCanvas.gameObject.SetActive(false);
+        });
     }
 
     private void InitializeBackButtons()
