@@ -49,7 +49,6 @@ public class Toggles : MonoBehaviour
 
     private void OnDisable()
     {
-        ActionPerformer.PerformActionOnObjects<Toggle>(_toggles, toggle => toggle.gameObject.SetActive(true));
         ActionPerformer.PerformActionOnObjects<Toggle>(_toggles, toggle => toggle.isOn = false);
         
         _visualizer.text = _initialVisualizerText;
