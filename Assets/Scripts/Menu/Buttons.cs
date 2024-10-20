@@ -19,11 +19,6 @@ public class Buttons : MonoBehaviour
 
         ActionPerformer.PerformActionOnObjects<Button>(_buttonsToVisualize, SetSendingTextToVisualizer);
     }
-/*
-    private void OneCliked()
-    {
-        _visualizer.text = "One";
-    }*/
 
     private void SetSendingTextToVisualizer(Button button)
     {
@@ -52,13 +47,3 @@ public class Buttons : MonoBehaviour
         ActionPerformer.PerformActionOnObjects<Button>(_buttonsToVisualize, button => button.onClick.RemoveAllListeners());
     }
 }
-
-/*
-    private void PerformActionOnButtonsToVisualize(Action<Button> action)
-    {
-        foreach (Button button in _buttonsToVisualize)
-        {
-            action(button);
-        }
-    }
-*/
