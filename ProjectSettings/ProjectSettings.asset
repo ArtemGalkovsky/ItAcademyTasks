@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 28
-  productGUID: 2afa6b3dd23e3014da59996836843d9c
+  productGUID: 365e6b6085cead044905f1363e063a94
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: HomeWork1 - PingPong, Teleport, Rotator, Scaler
+  productName: Lesson3
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -141,8 +141,7 @@ PlayerSettings:
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
   bundleVersion: 0.1.0
-  preloadedAssets:
-  - {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -853,14 +852,14 @@ PlayerSettings:
   editorAssembliesCompatibilityLevel: 1
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: HomeWork1 - PingPong, Teleport, Rotator, Scaler
+  metroPackageName: Lesson3
   metroPackageVersion: 
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
   metroCertificateIssuer: 
   metroCertificateNotAfter: 0000000000000000
-  metroApplicationDescription: HomeWork1 - PingPong, Teleport, Rotator, Scaler
+  metroApplicationDescription: Lesson3
   wsaImages: {}
   metroTileShortName: 
   metroTileShowName: 0
@@ -931,10 +930,10 @@ PlayerSettings:
   captureStartupLogs: {}
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 9f356366-256f-462d-b686-f65621ab8137
+  cloudProjectId: 188a9f52-0e12-4303-b0d4-eb541240b83d
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: HomeWork1 - PingPong, Teleport, Rotator, Scaler
+  projectName: Lesson3
   organizationId: liteop
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
