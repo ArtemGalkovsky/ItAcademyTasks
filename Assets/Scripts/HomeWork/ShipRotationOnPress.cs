@@ -43,7 +43,7 @@ public class ShipRotationOnPress : MonoBehaviour
 
         if (_isRotatingNow)
         {
-            if (!_isFirstRotation)
+            if (!_isFirstRotation)  // To prevent first click freaky rotation.
             {
                 RotateShip();
             }
