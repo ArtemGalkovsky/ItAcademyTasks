@@ -34,7 +34,7 @@ public class ShipColorer : MonoBehaviour
     {
         foreach (Button button in _colorSelectionButtons)
         {
-            button.onClick.RemoveAllListeners();
+            button?.onClick.RemoveAllListeners();
         }
     }
 }

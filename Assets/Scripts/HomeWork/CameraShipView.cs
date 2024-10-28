@@ -47,7 +47,7 @@ public class CameraShipView : MonoBehaviour
     {
         foreach (View view in _views)
         {
-            view.ViewButton.onClick.RemoveAllListeners();
+            view?.ViewButton?.onClick.RemoveAllListeners();
         }
     }
 }
