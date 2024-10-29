@@ -12,7 +12,7 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -47,7 +47,7 @@
                 {
                     "name": "",
                     "id": "b7a2a754-7a90-4001-8927-2bb24653ee80",
-                    "path": "<Pointer>/position",
+                    "path": "<Pointer>/delta",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

@@ -34,7 +34,7 @@ public partial class @ShipPreviewActions: IInputActionCollection2, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -69,7 +69,7 @@ public partial class @ShipPreviewActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""b7a2a754-7a90-4001-8927-2bb24653ee80"",
-                    ""path"": ""<Pointer>/position"",
+                    ""path"": ""<Pointer>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
