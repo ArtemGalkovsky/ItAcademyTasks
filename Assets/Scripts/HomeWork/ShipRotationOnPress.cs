@@ -49,4 +49,10 @@ public class ShipRotationOnPress : MonoBehaviour
     {
         return _shipPreviewActions.MousePosition.MousePosition.ReadValue<Vector2>().x;
     }
+
+    private void OnDestroy()
+    {
+        _shipPreviewActions?.Rotate.Disable();
+        _shipPreviewActions?.MousePosition.Disable();
+    }
 }

@@ -45,6 +45,11 @@ public class CameraShipView : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (_views == null)
+        {
+            return;
+        }
+        
         foreach (View view in _views)
         {
             view?.ViewButton?.onClick.RemoveAllListeners();
