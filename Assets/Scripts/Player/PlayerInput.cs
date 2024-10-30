@@ -18,10 +18,6 @@ namespace Player
             {
                 PlayerActions playerActions = new PlayerActions();  
                 playerActions.Enable();
-                // playerActions.Movement.Enable();
-                // playerActions.Fire.Enable();
-                // playerActions.Menu.Enable();
-                // playerActions.Reload.Enable();
                 
                 EnabledPlayerInputActions = playerActions;
             }

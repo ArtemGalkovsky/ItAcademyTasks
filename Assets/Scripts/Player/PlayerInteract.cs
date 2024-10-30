@@ -1,9 +1,9 @@
-using System;
 using TMPro;
 using UnityEngine;
 
 namespace Player
 {
+    [RequireComponent(typeof(PlayerInput))]
     public class PlayerInteract : MonoBehaviour
     {
         [SerializeField] private float _interactDistance = 3f;
@@ -14,8 +14,8 @@ namespace Player
         {
             SetHeadCamera(); 
             
-            Player.PlayerInput.EnabledPlayerInputActions.Interact.Interact.performed += (context) => _isInteracting = true;
-            Player.PlayerInput.EnabledPlayerInputActions.Interact.Interact.canceled += (context) => _isInteracting = false;
+            PlayerInput.EnabledPlayerInputActions.Interact.Interact.performed += (context) => _isInteracting = true;
+            PlayerInput.EnabledPlayerInputActions.Interact.Interact.canceled += (context) => _isInteracting = false;
             
             _interactText.enabled = false;
         }
