@@ -1,0 +1,16 @@
+{
+    "name": "MagazinesAssembly",
+    "rootNamespace": "",
+    "references": [
+        "GUID:02e2c2d3febb9b64aa0387ec63bfb802"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
