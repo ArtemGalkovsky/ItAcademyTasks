@@ -16,5 +16,5 @@ MonoBehaviour:
   _ammoPrefab: {fileID: 2841926373681039736, guid: 70d050c960902004aa7befa0ce0a5c13, type: 3}
   _ammoName: Grenades
   _explosionForce: 30
-  _explosionRadius: 4
+  _explosionRadius: 8
   _upwardsModifier: 3
