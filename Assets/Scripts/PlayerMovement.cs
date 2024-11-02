@@ -58,16 +58,16 @@ namespace Player
         private void Move()
         {
             Vector2 movementInput = GetMovementInput();
-
+            
             if (Mathf.Abs(movementInput.x) > _horizontalJoyStickRotationDeathZone)
             {
-                RotateHorizontally(_rotationSpeedCoefficient * Time.deltaTime * movementInput.x);
+                RotateHorizontally(_rotationSpeedCoefficient * Time.deltaTime * movementInput.normalized.x);
             }
             
             Vector3 moveDirection = Vector3.zero;
             if (Mathf.Abs(movementInput.y) > _movementJoyStickDeathZone)
             {
-                moveDirection = _movementSpeedCoefficient * Time.deltaTime *  movementInput.y * transform.forward.normalized;
+                moveDirection = _movementSpeedCoefficient * Time.deltaTime *  movementInput.normalized.y * transform.forward.normalized;
             }
 
             SetVerticalVelocity();
@@ -91,7 +91,7 @@ namespace Player
 
         private Vector2 GetMovementInput()
         {
-            Vector2 joystickMovementInput = _input.Movement.MovementJoyStick.ReadValue<Vector2>().normalized;
+            Vector2 joystickMovementInput = _input.Movement.MovementJoyStick.ReadValue<Vector2>();
             return joystickMovementInput;
         }
 
