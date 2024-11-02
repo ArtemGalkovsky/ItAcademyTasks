@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 namespace Player
 {
     [RequireComponent(typeof(CharacterController), typeof(Animator), typeof(PlayerInput))]
+    [RequireComponent(typeof(PlayerRespawnAndDeath))]
     public class PlayerMovement : MonoBehaviour
     {
         [SerializeField] private Animator _animator;
@@ -13,34 +14,36 @@ namespace Player
         [SerializeField] private float _rotationSpeedCoefficient = 10f;
         [SerializeField] private float _jumpVelocity = 0.4f;
         [SerializeField] private float _fallingGravityMultiplier = 0.2f;
+        [SerializeField, Range(0f, 1f)] private float _movementStateAnimatorStandValue = 0f;
+        [SerializeField, Range(0f, 1f)] private float _movementStateAnimatorRunValue = 1f;
 
         [Header("Animator Config")]
         [SerializeField] private string _animatorMovementParameterName = "Movement";
         [SerializeField] private string _animatorJumpParameterName = "Jumping";
-        [SerializeField] private string _animatorDeathParameterName = "Death";
-        [SerializeField] private string _animatorSpawnParameterName = "Spawn";
-        [SerializeField] private string _animatorCanMoveNowParameterName = "CanMoveNow";
-
-        [Header("Other")] [SerializeField] private float _noMoveTimeAfterSpawnSeconds = 4f; 
             
         private readonly float _gravity = Physics.gravity.y;
         private CharacterController _characterController;   
         private PlayerInputActions _playerInputActions;
+        private PlayerRespawnAndDeath _playerRespawnAndDeath;
         private bool _isJumping = false;
         private float _verticalVelocity = 0f;
-        private bool _canMoveNow = true;
+        private bool _canMoveNow = false;
         
-        private void Start()
+        private void Awake()
         {
+            Spawn();
             _characterController = GetComponent<CharacterController>();
+            _playerRespawnAndDeath = GetComponent<PlayerRespawnAndDeath>();
+            
+            _playerRespawnAndDeath.Death.AddListener(Die);
+            _playerRespawnAndDeath.Spawn.AddListener(Spawn);
+            _playerRespawnAndDeath.CanMoveNow.AddListener(EnableMovement);
             
             PlayerInput playerInput = GetComponent<PlayerInput>();
             playerInput.Initialize();
             _playerInputActions = playerInput.EnabledPlayerActions;
             
             _playerInputActions.Jump.Jump.performed += Jump;
-            _playerInputActions.Death.Die.performed += Die;
-            _playerInputActions.Spawn.Respawn.performed += Spawn;
         }
 
         private void Update()
@@ -49,32 +52,21 @@ namespace Player
 
             Move(timedInputMovement);
             Rotate(timedInputMovement.x * _rotationSpeedCoefficient);
-            ChangeSpeedOnAnimator(timedInputMovement.y == 0 ? 0 : 1);
         }
 
-        private void Die(InputAction.CallbackContext context)
+        private void Spawn()
         {
-            
-            _animator.SetTrigger(_animatorDeathParameterName);
-            _animator.SetBool(_animatorJumpParameterName, false);
-            
             _canMoveNow = false;
         }
 
-        private void Spawn(InputAction.CallbackContext context)
+        private void Die()
         {
-            _animator.SetTrigger(_animatorSpawnParameterName);
-            
-            StopCoroutine(Respawn2CanMoveTimer());
-            StartCoroutine(Respawn2CanMoveTimer());
+            _canMoveNow = false;
         }
 
-        private IEnumerator Respawn2CanMoveTimer()
+        private void EnableMovement()
         {
-            yield return new WaitForSeconds(_noMoveTimeAfterSpawnSeconds);
-            
             _canMoveNow = true;
-            _animator.SetTrigger(_animatorCanMoveNowParameterName);
         }
 
         private void Jump(InputAction.CallbackContext context)
@@ -114,6 +106,7 @@ namespace Player
             
             if (_canMoveNow)
             {
+                ChangeSpeedOnAnimator(inputMovement.y == 0 ? _movementStateAnimatorStandValue : _movementStateAnimatorRunValue);
                 movement = inputMovement.y * _movementSpeedCoefficient * transform.forward; 
             }
             else

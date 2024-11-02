@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 namespace Player
 {
+    [RequireComponent(typeof(Animator), typeof(PlayerInput))]
     public class PlayerHit : MonoBehaviour
     {
         [SerializeField] private Animator _animator;
