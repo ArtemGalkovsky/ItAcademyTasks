@@ -1700,8 +1700,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movementSpeedCoefficient: 10
   _rotationSpeedCoefficient: 75
-  _jumpForce: 6
+  _jumpVelocity: 0.2
   _gravityValue: -9.81
+  _fallingGravityMultiplier: 0.1
   _respawnTransform: {fileID: 1048754376}
   _movementJoyStickDeathZone: 0.3
   _horizontalJoyStickRotationDeathZone: 0.3

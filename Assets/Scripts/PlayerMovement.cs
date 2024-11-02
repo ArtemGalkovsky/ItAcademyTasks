@@ -9,8 +9,9 @@ namespace Player
     {
         [SerializeField] private float _movementSpeedCoefficient = 10f;
         [SerializeField] private float _rotationSpeedCoefficient = 5f;
-        [SerializeField] private float _jumpForce = 10f;
+        [SerializeField] private float _jumpVelocity = 1f;
         [SerializeField] private float _gravityValue = -9.81f;
+        [SerializeField, Min(0.1f)] private float _fallingGravityMultiplier = 0.1f;
         [SerializeField] private Transform _respawnTransform;
         [SerializeField] private float _movementJoyStickDeathZone = 0.3f;
         [SerializeField] private float _horizontalJoyStickRotationDeathZone = 0.3f;
@@ -72,20 +73,28 @@ namespace Player
 
             SetVerticalVelocity();
 
-            moveDirection.y = _verticalVelocity * Time.deltaTime;
+            moveDirection.y = _verticalVelocity;
             _controller.Move(moveDirection);
         }
 
         private void SetVerticalVelocity()
         {
-            if (_controller.isGrounded && _isJumping)
+            if (_isJumping)
             {
-                _verticalVelocity = _jumpForce;
-                _isJumping = false;
+                _verticalVelocity = Mathf.Clamp(_verticalVelocity + _jumpVelocity - (_jumpVelocity * Time.deltaTime), 0, _jumpVelocity);
+
+                if (_verticalVelocity >= _jumpVelocity)
+                {
+                    _isJumping = false;
+                }
+            }
+            else if (_verticalVelocity <= _gravityValue)
+            {
+                _verticalVelocity = _gravityValue;
             }
             else
             {
-                _verticalVelocity += _gravityValue * Time.deltaTime;
+                _verticalVelocity += _gravityValue * Time.deltaTime * _fallingGravityMultiplier;
             }
         }
 
