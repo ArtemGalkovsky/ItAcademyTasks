@@ -1,120 +1,148 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 namespace Player
 {
-    [RequireComponent(typeof(CharacterController), typeof(PlayerInput))]
+    [RequireComponent(typeof(CharacterController), typeof(Animator), typeof(PlayerInput))]
     public class PlayerMovement : MonoBehaviour
     {
-        [SerializeField] private float _movementSpeedCoefficient = 10f;
-        [SerializeField] private float _rotationSpeedCoefficient = 5f;
-        [SerializeField] private float _jumpVelocity = 1f;
-        [SerializeField] private float _gravityValue = -9.81f;
-        [SerializeField, Min(0.1f)] private float _fallingGravityMultiplier = 0.1f;
-        [SerializeField] private Transform _respawnTransform;
-        [SerializeField] private float _movementJoyStickDeathZone = 0.3f;
-        [SerializeField] private float _horizontalJoyStickRotationDeathZone = 0.3f;
-        
-        private CharacterController _controller;
-        private PlayerInput _input;
-        private float _verticalVelocity;
-        private bool _isJumping;
+        [SerializeField] private Animator _animator;
 
+        [Header("Movement")] [SerializeField] private float _movementSpeedCoefficient = 10f;
+        [SerializeField] private float _rotationSpeedCoefficient = 10f;
+        [SerializeField] private float _jumpVelocity = 0.4f;
+        [SerializeField] private float _fallingGravityMultiplier = 0.2f;
+
+        [Header("Animator Config")]
+        [SerializeField] private string _animatorMovementParameterName = "Movement";
+        [SerializeField] private string _animatorJumpParameterName = "Jumping";
+        [SerializeField] private string _animatorDeathParameterName = "Death";
+        [SerializeField] private string _animatorSpawnParameterName = "Spawn";
+        [SerializeField] private string _animatorCanMoveNowParameterName = "CanMoveNow";
+
+        [Header("Other")] [SerializeField] private float _noMoveTimeAfterSpawnSeconds = 4f; 
+            
+        private readonly float _gravity = Physics.gravity.y;
+        private CharacterController _characterController;   
+        private PlayerInputActions _playerInputActions;
+        private bool _isJumping = false;
+        private float _verticalVelocity = 0f;
+        private bool _canMoveNow = true;
+        
         private void Start()
         {
-            _controller = GetComponent<CharacterController>();
-            _input = Input.EnabledPlayerInput;
+            _characterController = GetComponent<CharacterController>();
             
-            _input.Jump.Jump.performed += JumpCallback;
-
-            // Cursor.lockState = CursorLockMode.Locked;
-
-            if (_respawnTransform == null)
-            {
-                Debug.LogError("Respawn transform is null!");
-            }
-            else
-            {
-                PlayerWaterDie.DieEvent.AddListener(MoveToRespawnPoint);
-            }
+            PlayerInput playerInput = GetComponent<PlayerInput>();
+            playerInput.Initialize();
+            _playerInputActions = playerInput.EnabledPlayerActions;
+            
+            _playerInputActions.Jump.Jump.performed += Jump;
+            _playerInputActions.Death.Die.performed += Die;
+            _playerInputActions.Spawn.Respawn.performed += Spawn;
         }
 
-        private void MoveToRespawnPoint()
-        {
-            Vector3 motion = _respawnTransform.position - transform.position;
-            _controller.Move(motion);
-        }
-        
         private void Update()
         {
-            Move();
+            Vector2 timedInputMovement = GetMovement(); // TODO: rename variable.
+
+            Move(timedInputMovement);
+            Rotate(timedInputMovement.x * _rotationSpeedCoefficient);
+            ChangeSpeedOnAnimator(timedInputMovement.y == 0 ? 0 : 1);
         }
 
-        private void RotateHorizontally(float rotationMovement)
+        private void Die(InputAction.CallbackContext context)
         {
-            transform.Rotate(rotationMovement * Vector3.up, Space.World);
+            
+            _animator.SetTrigger(_animatorDeathParameterName);
+            _animator.SetBool(_animatorJumpParameterName, false);
+            
+            _canMoveNow = false;
         }
 
-        private void Move()
+        private void Spawn(InputAction.CallbackContext context)
         {
-            Vector2 movementInput = GetMovementInput();
+            _animator.SetTrigger(_animatorSpawnParameterName);
             
-            if (Mathf.Abs(movementInput.x) > _horizontalJoyStickRotationDeathZone)
-            {
-                RotateHorizontally(_rotationSpeedCoefficient * Time.deltaTime * movementInput.normalized.x);
-            }
-            
-            Vector3 moveDirection = Vector3.zero;
-            if (Mathf.Abs(movementInput.y) > _movementJoyStickDeathZone)
-            {
-                moveDirection = _movementSpeedCoefficient * Time.deltaTime *  movementInput.normalized.y * transform.forward.normalized;
-            }
-
-            SetVerticalVelocity();
-
-            moveDirection.y = _verticalVelocity;
-            _controller.Move(moveDirection);
+            StopCoroutine(Respawn2CanMoveTimer());
+            StartCoroutine(Respawn2CanMoveTimer());
         }
 
+        private IEnumerator Respawn2CanMoveTimer()
+        {
+            yield return new WaitForSeconds(_noMoveTimeAfterSpawnSeconds);
+            
+            _canMoveNow = true;
+            _animator.SetTrigger(_animatorCanMoveNowParameterName);
+        }
+
+        private void Jump(InputAction.CallbackContext context)
+        {
+            if (_characterController.isGrounded && _canMoveNow)
+            {
+                _isJumping = true;
+                _animator.SetBool(_animatorJumpParameterName, true);
+            }
+        }
+        
         private void SetVerticalVelocity()
         {
-            if (_isJumping)
+            if (_isJumping && _canMoveNow)
             {
                 _verticalVelocity = Mathf.Clamp(_verticalVelocity + _jumpVelocity - (_jumpVelocity * Time.deltaTime), 0, _jumpVelocity);
 
                 if (_verticalVelocity >= _jumpVelocity)
                 {
                     _isJumping = false;
+                    _animator.SetBool(_animatorJumpParameterName, false);
                 }
             }
-            else if (_verticalVelocity <= _gravityValue)
+            else if (_verticalVelocity <= _gravity)
             {
-                _verticalVelocity = _gravityValue;
+                _verticalVelocity = _gravity;
             }
             else
             {
-                _verticalVelocity += _gravityValue * Time.deltaTime * _fallingGravityMultiplier;
+                _verticalVelocity += _gravity * Time.deltaTime * _fallingGravityMultiplier;
             }
         }
 
-        private Vector2 GetMovementInput()
+        private void Move(Vector2 inputMovement)
         {
-            Vector2 joystickMovementInput = _input.Movement.MovementJoyStick.ReadValue<Vector2>();
-            return joystickMovementInput;
-        }
-
-        private void JumpCallback(InputAction.CallbackContext context)
-        {
-            Jump();
-        }
-
-        public void Jump()
-        {
-            if (_controller.isGrounded)
+            Vector3 movement;
+            
+            if (_canMoveNow)
             {
-                _isJumping = true;
+                movement = inputMovement.y * _movementSpeedCoefficient * transform.forward; 
             }
+            else
+            {
+                movement = Vector3.zero;
+            }
+            
+            
+            SetVerticalVelocity();
+            movement.y = _verticalVelocity;
+            _characterController.Move(movement);
         }
-    }   
+
+        private void Rotate(float rotationAngleWithSpeed)
+        {
+            transform.Rotate(0f, rotationAngleWithSpeed, 0f);
+        }
+
+        private Vector2 GetMovement()
+        {
+            Vector2 movement = _playerInputActions.Movement.Move.ReadValue<Vector2>();
+            
+            return Time.deltaTime * movement;
+        }
+
+        private void ChangeSpeedOnAnimator(float inputMovementMovement)
+        {
+            _animator.SetFloat(_animatorMovementParameterName, inputMovementMovement);
+        }
+    }
 }
+
