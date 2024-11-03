@@ -122,7 +122,10 @@ namespace Player
 
         private void Rotate(float rotationAngleWithSpeed)
         {
-            transform.Rotate(0f, rotationAngleWithSpeed, 0f);
+            if (_canMoveNow)
+            {
+                transform.Rotate(0f, rotationAngleWithSpeed, 0f);   
+            }
         }
 
         private Vector2 GetMovement()
