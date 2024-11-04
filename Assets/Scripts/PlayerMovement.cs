@@ -31,7 +31,6 @@ namespace Player
         
         private void Awake()
         {
-            Spawn();
             _characterController = GetComponent<CharacterController>();
             _playerRespawnAndDeath = GetComponent<PlayerRespawnAndDeath>();
             
