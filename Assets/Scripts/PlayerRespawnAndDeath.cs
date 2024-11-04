@@ -15,8 +15,9 @@ namespace Player
         [SerializeField] private float _noMoveTimeAfterSpawnSeconds = 2.5f; 
         [SerializeField] private Animator _animator;
         
-
         private PlayerInputActions _playerInputActions;
+        private bool _isDead = false;
+        
         public UnityEvent Death { get; } = new UnityEvent();
         public UnityEvent Spawn { get; } = new UnityEvent();
         public UnityEvent CanMoveNow { get; } = new UnityEvent();
@@ -31,12 +32,22 @@ namespace Player
 
             _playerInputActions.Death.Die.performed += Die;
             _playerInputActions.Spawn.Respawn.performed += Respawn;
+            
             Respawn();
         }
 
 
         private void Die(InputAction.CallbackContext context)
         {
+            if (_isDead)
+            {
+                return;
+            }
+            
+            _isDead = true;
+            
+            StopAllCoroutines();
+            
             Death?.Invoke();
             _animator.SetTrigger(_animatorDeathParameterName);
             _animator.SetBool(_animatorCanMoveNowParameterName, false);
@@ -49,6 +60,8 @@ namespace Player
 
         private void Respawn()
         {
+            _isDead = false;
+            
             Spawn?.Invoke();
             _animator.SetTrigger(_animatorSpawnParameterName);
             _animator.SetBool(_animatorCanMoveNowParameterName, false);
