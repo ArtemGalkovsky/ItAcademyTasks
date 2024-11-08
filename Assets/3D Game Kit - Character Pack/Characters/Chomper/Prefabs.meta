@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/3D Game Kit - Character Pack/Characters/Chomper/Prefabs.meta
 guid: 9e9cff0d7cd46d24cbcc432030b7719b
+========
+guid: 73825a46170862940b7684e9ee2240c3
+>>>>>>>> Stashed changes:Assets/Prefabs.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

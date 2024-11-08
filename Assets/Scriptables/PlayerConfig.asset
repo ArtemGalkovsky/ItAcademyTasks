@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a2469d81213f5f448421b9a2f815631, type: 3}
+  m_Name: PlayerConfig
+  m_EditorClassIdentifier: 
+  RotationSpeedCoefficient: 100
+  MovementSpeedCoefficient: 10
+  JumpVelocity: 0.4
+  FallingGravityMultiplier: 0.2
+  GravityY: -9.81
+  SpawnTimeSeconds: 2.3
+  SpawnTriggerName: Spawn
+  DeathTriggerName: Death
+  JumpTriggerName: Jumping
+  TurnLeftTriggerName: TurnLeft
+  TurnRightTriggerName: TurnRight
+  MoveTriggerName: Move
+  IdleTriggerName: Idle
+  HitTriggersNames:
+  - Hit1
+  - Hit2
+  - Hit3
+  - Hit4
+  - Hit5
+  DeathAnimationName: EllenDeath
+  SpawnAnimationName: EllenSpawn
+  JumpAnimationName: Jumping
+  HitAnimationName: Hit
+  MovementAnimationName: Movement
+  TurnLeftAnimationName: EllenQuickTurnLeft
+  TurnRightAnimationName: EllenQuickTurnRight
+  IdleAnimationName: EllenIdle
