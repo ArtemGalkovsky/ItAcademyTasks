@@ -15,6 +15,7 @@ namespace Player
 
         private Vector2 _currentMovement = Vector2.zero;
         private bool _isInitialized = false;
+        private bool _isJumpingNow = false;
 
         public UnityEvent<IMovementState> ChangeStateTo { get; } = new UnityEvent<IMovementState>();
 
@@ -39,6 +40,7 @@ namespace Player
             playerInputActions.Death.Die.performed += (_) => ChangeState(_statesDataStorage.PlayerMovementStates.Death);
             playerInputActions.Spawn.Respawn.performed += (_) => ChangeState(_statesDataStorage.PlayerMovementStates.Spawn);
             playerInputActions.Jump.Jump.performed += (_) => ChangeState(_statesDataStorage.PlayerMovementStates.Jump);
+            playerInputActions.Hit.Hit.performed += (_) => ChangeState(_statesDataStorage.PlayerMovementStates.Hit);
         }
 
         private void Update()
@@ -49,7 +51,7 @@ namespace Player
             }
             
             _currentMovement = _playerInputActions.Movement.Move.ReadValue<Vector2>();
-            
+
             if (_currentMovement == Vector2.zero)
             {
                 ChangeState(_statesDataStorage.PlayerMovementStates.Idle);
@@ -58,7 +60,7 @@ namespace Player
             {
                 ChangeState(_currentMovement.x > 0 ? _statesDataStorage.PlayerMovementStates.TurnRight : _statesDataStorage.PlayerMovementStates.TurnLeft);
             }
-            else
+            else if (_currentMovement != Vector2.zero)
             {
                 ChangeState(_statesDataStorage.PlayerMovementStates.Run);
             }
@@ -79,8 +81,10 @@ namespace Player
 
         private void ChangeState(IMovementState newState)
         {
-            if (newState == _playerMovementStateMachine.CurrentState) return;
-            ChangeStateTo?.Invoke(newState);
+            if (newState != _playerMovementStateMachine.CurrentState)
+            {
+                ChangeStateTo?.Invoke(newState);   
+            }
         }
     }
 }

@@ -33,7 +33,7 @@ MonoBehaviour:
   - Hit5
   DeathAnimationName: EllenDeath
   SpawnAnimationName: EllenSpawn
-  JumpAnimationName: Jumping
+  JumpAnimationName: EllenJumpTakeOff
   HitAnimationName: Hit
   MovementAnimationName: Movement
   TurnLeftAnimationName: EllenTurnLeft

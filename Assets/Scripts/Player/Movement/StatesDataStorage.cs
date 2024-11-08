@@ -7,20 +7,23 @@ namespace Player.States
     {
         public Transform PlayerTransform { get; private set; }
         public Animator PlayerAnimator { get; private set; }
-        public CharacterController PlayerCharacterController { get; private set; }
+        public FinalMovementBrain PlayerFinalMovementBrain { get; private set; }
         public PlayerInput PlayerInputComponent { get; private set; }
         public InputObserver PlayerInputObserver { get; private set; }
         public PlayerMovementStateMachine MovementStateMachine { get; private set; }
         public StatesDataStorage DataStorageStatesData { get; private set; }
+        public CharacterController PlayerCharacterController { get; private set; }
         
         internal PlayerComponents(GameObject stateMachineGameObject, StatesDataStorage statesDataStorage)
         {
             PlayerTransform = stateMachineGameObject.GetComponent<Transform>();
             PlayerAnimator = stateMachineGameObject.GetComponent<Animator>();
-            PlayerCharacterController = stateMachineGameObject.GetComponent<CharacterController>();
+            PlayerFinalMovementBrain = stateMachineGameObject.GetComponent<FinalMovementBrain>();
             PlayerInputComponent = stateMachineGameObject.GetComponent<PlayerInput>();
             PlayerInputObserver = stateMachineGameObject.GetComponent<InputObserver>();
             MovementStateMachine = stateMachineGameObject.GetComponent<PlayerMovementStateMachine>();
+            PlayerCharacterController = stateMachineGameObject.GetComponent<CharacterController>();
+            
             DataStorageStatesData = statesDataStorage;
         }
     }
@@ -34,6 +37,7 @@ namespace Player.States
         public IdleState Idle { get; private set; }
         public TurnLeftState TurnLeft { get; private set; }
         public TurnRightState TurnRight { get; private set; }
+        public HitState Hit { get; private set; }
 
         public States(StatesDataStorage statesDataStorage)
         {
@@ -44,12 +48,13 @@ namespace Player.States
             Idle = new IdleState(statesDataStorage);
             TurnLeft = new TurnLeftState(statesDataStorage);
             TurnRight = new TurnRightState(statesDataStorage);
+            Hit = new HitState(statesDataStorage);
         }
     }
     
     [RequireComponent(typeof(PlayerConfigComponent), typeof(CharacterController), typeof(Animator)),
-    RequireComponent(typeof(CharacterController), typeof(PlayerInput), typeof(InputObserver)),
-    RequireComponent(typeof(PlayerMovementStateMachine))]
+    RequireComponent(typeof(FinalMovementBrain), typeof(PlayerInput), typeof(InputObserver)),
+    RequireComponent(typeof(PlayerMovementStateMachine), typeof(CharacterController))]
     internal class StatesDataStorage: MonoBehaviour
     {
         public States PlayerMovementStates { get; private set; }

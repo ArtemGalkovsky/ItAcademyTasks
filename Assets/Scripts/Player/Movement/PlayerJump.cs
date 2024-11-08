@@ -10,6 +10,7 @@ namespace Player
     {
         private StatesDataStorage _statesDataStorage;
         private PlayerMovementStateMachine _stateMachine;
+        private FinalMovementBrain _finalMovementBrain;
         private CharacterController _characterController;
         private PlayerConfig _playerConfig;
         private Action<float> _jumpAction = null;
@@ -27,10 +28,13 @@ namespace Player
         private void OnStateChanged(IMovementState newState, StatesDataStorage statesDataStorage)
         {
             _statesDataStorage = statesDataStorage;
+            _playerConfig = statesDataStorage.Config;
             _characterController = statesDataStorage.Components.PlayerCharacterController;
-
+            _finalMovementBrain = statesDataStorage.Components.PlayerFinalMovementBrain;
+            
             if (newState is JumpState)
             {
+                StartJump();
                 _jumpAction = JumpUpdate;
             }
             else
@@ -58,16 +62,17 @@ namespace Player
             {
                 _jumpPeakGotten = true;
                 _isJumping = false;
-            } else if (_jumpPeakGotten && _currentYVelocity > _playerConfig.GravityY)
-            {
-                _currentYVelocity -= _playerConfig.GravityY * deltaTime * _playerConfig.FallingGravityMultiplier;
             }
-            else if (_characterController.isGrounded && !_isJumping)
+            
+            if (_jumpPeakGotten || (_characterController.isGrounded && !_isJumping))
             {
+                _jumpPeakGotten = false;
                 _statesDataStorage.Components.MovementStateMachine.TransitionToState(_statesDataStorage.PlayerMovementStates.Idle);
             }
-
+            
             _currentYVelocity += _playerConfig.JumpVelocity - (_playerConfig.JumpVelocity * deltaTime);
+            
+            _finalMovementBrain.AddMovementToQueue(Vector3.up * _currentYVelocity);
         }
 
         private void StartJump()

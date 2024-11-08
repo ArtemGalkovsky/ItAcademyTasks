@@ -22,7 +22,9 @@ namespace Player.States
         protected override void TryChangeState(IMovementState nextState)
         {
             AnimatorStateInfo animatorStateInfo = StatesData.Components.PlayerAnimator.GetCurrentAnimatorStateInfo(0);
-            if (nextState is not DeathState && nextState is SpawnState && animatorStateInfo.IsName(StatesData.Config.DeathAnimationName) && animatorStateInfo.normalizedTime > 1f)
+            AnimatorClipInfo[] animatorClipInfos = StatesData.Components.PlayerAnimator.GetCurrentAnimatorClipInfo(0);
+            
+            if (nextState is not DeathState && nextState is SpawnState && animatorClipInfos[0].clip.name == StatesData.Config.DeathAnimationName && animatorStateInfo.normalizedTime > 1f)
             {
                 StatesData.Components.MovementStateMachine.TransitionToState(nextState);
             }

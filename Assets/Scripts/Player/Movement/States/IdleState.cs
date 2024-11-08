@@ -1,7 +1,3 @@
-using System.Collections;
-using Unity.VisualScripting.Dependencies.NCalc;
-using UnityEngine;
-
 namespace Player.States
 {
     internal class IdleState : DefaultMovementState

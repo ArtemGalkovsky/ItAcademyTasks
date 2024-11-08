@@ -16,14 +16,13 @@ namespace Player.States
             StatesDataStorage statesData = GetComponent<StatesDataStorage>();
             _statesDataStorage = statesData;
             statesData.Initialize();
-            
-            CurrentState = statesData.PlayerMovementStates.Spawn;
-            CurrentState.Enter();
+
+            TransitionToState(statesData.PlayerMovementStates.Spawn);
         }
 
         public void TransitionToState(IMovementState newState)
         {
-            CurrentState.Exit();
+            CurrentState?.Exit();
             CurrentState = newState;
             CurrentState.Enter();
             

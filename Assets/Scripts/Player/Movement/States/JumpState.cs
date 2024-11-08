@@ -27,10 +27,6 @@ namespace Player.States
         
         protected override void TryChangeState(IMovementState nextState)
         {
-            if (!_animator.GetCurrentAnimatorStateInfo(0).IsName(_statesDataStorage.Config.JumpAnimationName))
-            {
-                StatesData.Components.MovementStateMachine.TransitionToState(nextState);
-            }
         }
     }
 }

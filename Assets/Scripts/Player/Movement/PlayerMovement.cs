@@ -11,8 +11,7 @@ namespace Player
         private StatesDataStorage _statesDataStorage;
         private PlayerMovementStateMachine _stateMachine;
         private PlayerInputActions _movementInputAction;
-        private CharacterController _characterController;
-        private float _gravityY;
+        private FinalMovementBrain _finalMovementBrain;
         private Action<Vector2> _movementAction = null;
         
         private Transform _playerTransform;
@@ -28,12 +27,11 @@ namespace Player
 
         private void OnStateChanged(IMovementState newState, StatesDataStorage statesDataStorage)
         {
+            _finalMovementBrain = statesDataStorage.Components.PlayerFinalMovementBrain;
             _movementInputAction = statesDataStorage.Components.PlayerInputComponent.EnabledPlayerActions;
             _playerTransform = statesDataStorage.Components.PlayerTransform;
             _rotationSpeedCoefficient = statesDataStorage.Config.RotationSpeedCoefficient;
             _movementSpeedCoefficient = statesDataStorage.Config.MovementSpeedCoefficient;
-            _characterController = statesDataStorage.Components.PlayerCharacterController;
-            _gravityY = statesDataStorage.Config.GravityY;
             
             if (newState is RunState)
             {
@@ -68,21 +66,13 @@ namespace Player
 
         private void MoveCharacterController(Vector2 inputMovement)
         {
-            Move(inputMovement.y);
+            _finalMovementBrain.AddMovementToQueue(inputMovement.y * _movementSpeedCoefficient * _playerTransform.forward);
             Rotate(inputMovement.x);
         }
 
-        private void Move(float movementInputMovement)
+        private void Rotate(float inputRotationMovement)
         {
-            Vector3 movement = movementInputMovement * _movementSpeedCoefficient * _playerTransform.forward; 
-            
-            movement.y = _gravityY;
-            _characterController.Move(movement);
-        }
-
-        private void Rotate(float rotationAngle)
-        {
-            _playerTransform.Rotate(0f, rotationAngle * _rotationSpeedCoefficient, 0f);   
+            _finalMovementBrain.AddRotationToQueue(Quaternion.Euler(0f, inputRotationMovement * _rotationSpeedCoefficient, 0f));
         }
         
         private Vector2 GetMovement(float deltaTime)
