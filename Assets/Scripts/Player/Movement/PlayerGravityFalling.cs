@@ -9,12 +9,14 @@ namespace Player
     internal class PlayerGravityFalling : MonoBehaviour
     {
         private PlayerMovementStateMachine _stateMachine;
+        private CharacterController _characterController;
         private FinalMovementBrain _finalMovementBrain;
         private PlayerConfig _playerConfig;
-
-        private bool _isNowFalling = true;
+        
         private float _gravityY;
         private float _fallingMultiplier;
+        private bool _isInitialized = false;
+        private float _currentGravityY;
         
         private void Awake()
         {
@@ -26,26 +28,32 @@ namespace Player
         {
             _finalMovementBrain = statesDataStorage.Components.PlayerFinalMovementBrain;
             _gravityY = statesDataStorage.Config.GravityY;
+            _currentGravityY = _gravityY;
             _fallingMultiplier = statesDataStorage.Config.FallingGravityMultiplier;
+            _characterController = statesDataStorage.Components.PlayerCharacterController;
             
-            if (newState is JumpState)
-            {
-                _isNowFalling = false;
-            }
-            else
-            {
-                _isNowFalling = true;
-            }
+            _isInitialized = true;
         }
 
         private void FixedUpdate()
         {
-            if (!_isNowFalling)
+            if (!_isInitialized)
             {
                 return;
             }
-   
-            _finalMovementBrain.AddMovementToQueue(_fallingMultiplier * _gravityY * Vector3.up);
+
+            if (_characterController.velocity.y > 0)
+            {
+                _currentGravityY = 0f;
+            }
+            else
+            {
+                _currentGravityY += _gravityY * Time.fixedDeltaTime * _fallingMultiplier;
+            }
+
+            
+            
+            _finalMovementBrain.AddMovementToQueue(new QueueMovementComponent(_currentGravityY * Vector3.up, "Gravity"));
         }
         
         private void OnDestroy()

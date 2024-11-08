@@ -14,10 +14,9 @@ namespace Player
         private CharacterController _characterController;
         private PlayerConfig _playerConfig;
         private Action<float> _jumpAction = null;
-
-        private bool _isJumping = false;
-        private float _currentYVelocity = 0f;
+        
         private bool _jumpPeakGotten = false;
+        private float _sumVelocityY = 0;
         
         private void Awake()
         {
@@ -34,6 +33,7 @@ namespace Player
             
             if (newState is JumpState)
             {
+                _jumpPeakGotten = false;
                 StartJump();
                 _jumpAction = JumpUpdate;
             }
@@ -56,30 +56,30 @@ namespace Player
         
         private void JumpUpdate(float deltaTime)
         {
-            _currentYVelocity = _characterController.velocity.y;
-            
-            if (_currentYVelocity >= _playerConfig.JumpVelocity)
+            if (_sumVelocityY >= _playerConfig.MaxJumpVelocity)
             {
                 _jumpPeakGotten = true;
-                _isJumping = false;
             }
             
-            if (_jumpPeakGotten || (_characterController.isGrounded && !_isJumping))
+            if (_jumpPeakGotten && _characterController.isGrounded)
             {
+                _sumVelocityY = 0f;
                 _jumpPeakGotten = false;
-                _statesDataStorage.Components.MovementStateMachine.TransitionToState(_statesDataStorage.PlayerMovementStates.Idle);
+                _stateMachine.TransitionToState(_statesDataStorage.PlayerMovementStates.Idle);
             }
-            
-            _currentYVelocity += _playerConfig.JumpVelocity - (_playerConfig.JumpVelocity * deltaTime);
-            
-            _finalMovementBrain.AddMovementToQueue(Vector3.up * _currentYVelocity);
+            else if (!_jumpPeakGotten)
+            {
+                _sumVelocityY += deltaTime * _playerConfig.MaxJumpVelocity;
+                
+                _finalMovementBrain.AddMovementToQueue(new QueueMovementComponent((_playerConfig.MaxJumpVelocity - _sumVelocityY) * Vector3.up, "Jump"));   
+            }
         }
 
         private void StartJump()
         {
-            if (_characterController.isGrounded)
+            if (!_characterController.isGrounded)
             {
-                _isJumping = true;
+                _stateMachine.TransitionToState(_statesDataStorage.PlayerMovementStates.Idle);
             }
         }
         

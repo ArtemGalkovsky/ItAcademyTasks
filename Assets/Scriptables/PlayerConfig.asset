@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RotationSpeedCoefficient: 100
   MovementSpeedCoefficient: 10
-  JumpVelocity: 0.4
-  FallingGravityMultiplier: 0.2
+  MaxJumpVelocity: 0.2
+  FallingGravityMultiplier: 0.03
   GravityY: -9.81
   SpawnTimeSeconds: 2.3
   SpawnTriggerName: Spawn

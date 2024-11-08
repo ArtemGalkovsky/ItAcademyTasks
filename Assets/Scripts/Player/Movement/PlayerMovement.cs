@@ -66,7 +66,7 @@ namespace Player
 
         private void MoveCharacterController(Vector2 inputMovement)
         {
-            _finalMovementBrain.AddMovementToQueue(inputMovement.y * _movementSpeedCoefficient * _playerTransform.forward);
+            _finalMovementBrain.AddMovementToQueue(new QueueMovementComponent(inputMovement.y * _movementSpeedCoefficient * _playerTransform.forward, "Movement"));
             Rotate(inputMovement.x);
         }
 

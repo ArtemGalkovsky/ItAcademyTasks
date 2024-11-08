@@ -15,7 +15,6 @@ namespace Player
 
         private Vector2 _currentMovement = Vector2.zero;
         private bool _isInitialized = false;
-        private bool _isJumpingNow = false;
 
         public UnityEvent<IMovementState> ChangeStateTo { get; } = new UnityEvent<IMovementState>();
 

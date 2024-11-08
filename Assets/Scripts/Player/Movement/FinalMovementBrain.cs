@@ -1,6 +1,8 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
+using Vector3 = UnityEngine.Vector3;
+
 
 namespace Player
 {
@@ -8,19 +10,21 @@ namespace Player
     internal class FinalMovementBrain : MonoBehaviour
     {
         private CharacterController _characterController;
-        private Queue<Vector3> _movementQueue = new Queue<Vector3>();
+        private Queue<QueueMovementComponent> _movementQueue = new Queue<QueueMovementComponent>();
         private Queue<Quaternion> _rotationQueue = new Queue<Quaternion>();
 
         private bool _isJumping = false;
-        
+        private bool _applyGravity = true;
+        private Vector3 _lastGroundedMovement = Vector3.zero;
+
         private void Awake()
         {
             _characterController = GetComponent<CharacterController>();
         }
 
-        public void AddMovementToQueue(Vector3 movement)
+        public void AddMovementToQueue(QueueMovementComponent movementComponent)
         {
-            _movementQueue.Enqueue(movement);
+            _movementQueue.Enqueue(movementComponent);
         }
 
         public void AddRotationToQueue(Quaternion rotation)
@@ -30,47 +34,71 @@ namespace Player
 
         private void FixedUpdate()
         {
-            List<Vector3> movements = new List<Vector3>();
-            for (int i = 0; i < _movementQueue.Count; i++)
-            {
-                Vector3 newMovement = _movementQueue.Dequeue();
-                movements.Add(newMovement);
-                
-                if (newMovement.y > 0)
-                {
-                    _isJumping = true;
-                }
-            }
-            
-            AddMovement(movements);
-            
-            Quaternion rotation = Quaternion.identity;
-            
-            for (int i = 0; i < _rotationQueue.Count; i++)
-            {
-                rotation *= _rotationQueue.Dequeue();
-            }
-
-            transform.Rotate(rotation.eulerAngles);
+            ApplyMovement();
+            ApplyRotation();
         }
 
-        private void AddMovement(IEnumerable<Vector3> movements)
+        private void ApplyMovement()
         {
-            Vector3 movement = Vector3.zero;
-
-            foreach (Vector3 movementVector in movements)
+            if (_characterController.isGrounded)
             {
-                if (movementVector.y < 0 && _isJumping)
+                _lastGroundedMovement = _characterController.velocity * Time.fixedDeltaTime;
+                _isJumping = false;
+            }
+            
+            _applyGravity = true;
+
+            List<QueueMovementComponent> movements = PrepareMovement();
+            
+            Vector3 finalMovement = Vector3.zero;
+
+            foreach (QueueMovementComponent component in movements)
+            {
+                if (!_applyGravity && component.SourceOfMovement == "Gravity")
                 {
                     continue;
                 }
                 
-                movement += movementVector;
+                finalMovement += component.Movement;
+            }
+            
+            if (_isJumping)
+            {
+                finalMovement += new Vector3(_lastGroundedMovement.x, 0f, _lastGroundedMovement.z); // Saving forward moving when jump
+            }
+            
+            _characterController.Move(finalMovement);
+        }
+
+        private List<QueueMovementComponent> PrepareMovement()
+        {
+            List<QueueMovementComponent> movements = new List<QueueMovementComponent>();
+
+            while (_movementQueue.Count > 0)
+            {
+                QueueMovementComponent component = _movementQueue.Dequeue();
+                movements.Add(component);
+                
+                if (component.Movement.y > 0)
+                {
+                    _isJumping = true;
+                    _applyGravity = false;
+                }
             }
 
-            _isJumping = false;
-            _characterController.Move(movement);
+            return movements;
+        }
+
+        private void ApplyRotation()
+        {
+            Quaternion rotation = Quaternion.identity;
+            
+            while (_rotationQueue.Count > 0)
+            {
+                rotation *= _rotationQueue.Dequeue();
+            }
+            
+            transform.Rotate(rotation.eulerAngles);
         }
     }
 }
-

@@ -8,7 +8,7 @@ namespace Player.Config
         [Header("Movement")]
         public float RotationSpeedCoefficient = 10f;
         public float MovementSpeedCoefficient = 10f;
-        public float JumpVelocity = 0.4f;
+        public float MaxJumpVelocity = 1f;
         public float FallingGravityMultiplier = 0.2f;
         public float GravityY = Physics.gravity.y;
 
