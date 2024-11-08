@@ -4,7 +4,7 @@ namespace Player.States
 {
     internal class DeathState : DefaultMovementState
     {
-        public DeathState(Config.PlayerConfig playerConfig, PlayerComponents playerComponents) : base(playerConfig, playerComponents)
+        public DeathState(StatesDataStorage statesDataStorage) : base(statesDataStorage)
         {
         }
 
@@ -12,24 +12,19 @@ namespace Player.States
         {
             base.Enter();
             
-            Components.PlayerAnimator.SetTrigger(Config.DeathTriggerName);
+            StatesData.Components.PlayerAnimator.SetTrigger(StatesData.Config.DeathTriggerName);
         }
 
         public override void Update(float deltaTime)
         {
         }
 
-        public override void Exit()
-        {
-            base.Exit();
-        }
-
         protected override void TryChangeState(IMovementState nextState)
         {
-            AnimatorStateInfo animatorStateInfo = Components.PlayerAnimator.GetCurrentAnimatorStateInfo(0);
-            if (nextState is not DeathState && nextState is SpawnState && animatorStateInfo.IsName(Config.DeathAnimationName) && animatorStateInfo.normalizedTime > 1f)
+            AnimatorStateInfo animatorStateInfo = StatesData.Components.PlayerAnimator.GetCurrentAnimatorStateInfo(0);
+            if (nextState is not DeathState && nextState is SpawnState && animatorStateInfo.IsName(StatesData.Config.DeathAnimationName) && animatorStateInfo.normalizedTime > 1f)
             {
-                Components.MovementStateMachine.TransitionToState(nextState);
+                StatesData.Components.MovementStateMachine.TransitionToState(nextState);
             }
         }
     }

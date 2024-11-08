@@ -1,77 +1,86 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using Player.States;
 
 namespace Player
 {
-    [RequireComponent(typeof(PlayerInput), typeof(States.StatesStorage))]
+    [RequireComponent(typeof(PlayerInput), typeof(StatesDataStorage), typeof(PlayerMovementStateMachine))]
     internal class InputObserver : MonoBehaviour
     {
         private PlayerInput _playerInput;
-        private StatesStorage _statesStorage; 
+        private StatesDataStorage _statesDataStorage; 
         private PlayerInputActions _playerInputActions;
+        private PlayerMovementStateMachine _playerMovementStateMachine;
 
         private Vector2 _currentMovement = Vector2.zero;
-        private bool _isMoving = false;
-        private bool _isRotating = false;
-        
-        public UnityEvent<IMovementState> ChangeStateTo { get; }= new UnityEvent<States.IMovementState>();
-        
-        private void Awake()
+        private bool _isInitialized = false;
+
+        public UnityEvent<IMovementState> ChangeStateTo { get; } = new UnityEvent<IMovementState>();
+
+        private void Start()
         {
-            _statesStorage = GetComponent<States.StatesStorage>();
+            _playerMovementStateMachine = GetComponent<PlayerMovementStateMachine>();
+            _playerMovementStateMachine.StateChanged.AddListener(OnStateMachineStateChanged);
+        }
+
+        private void Initialize(StatesDataStorage statesDataStorage)
+        {
+            _isInitialized = true;
+            
+            _statesDataStorage = statesDataStorage;
             
             _playerInput = GetComponent<PlayerInput>();
             _playerInput.Initialize();
 
             PlayerInputActions playerInputActions = _playerInput.EnabledPlayerActions;
             _playerInputActions = playerInputActions;
-            
-            playerInputActions.Death.Die.performed += (_) => ChangeState(_statesStorage.Death);
-            playerInputActions.Spawn.Respawn.performed += (_) => ChangeState(_statesStorage.Spawn);
-            
-            playerInputActions.Jump.Jump.performed += (_) => ChangeState(_statesStorage.Jump);
+
+            playerInputActions.Death.Die.performed += (_) => ChangeState(_statesDataStorage.PlayerMovementStates.Death);
+            playerInputActions.Spawn.Respawn.performed += (_) => ChangeState(_statesDataStorage.PlayerMovementStates.Spawn);
+            playerInputActions.Jump.Jump.performed += (_) => ChangeState(_statesDataStorage.PlayerMovementStates.Jump);
         }
 
         private void Update()
         {
+            if (!_isInitialized)
+            {
+                return;
+            }
+            
             _currentMovement = _playerInputActions.Movement.Move.ReadValue<Vector2>();
             
-            Debug.Log(_currentMovement);
-            if (_currentMovement.y == 0f && _currentMovement.x != 0f && !_isRotating)
+            if (_currentMovement == Vector2.zero)
             {
-                _isRotating = true;
-                
-                if (_currentMovement.y > 0f)
-                {   
-                    ChangeState(_statesStorage.TurnRight);
-                } else if (_currentMovement.y < 0f)
-                {
-                    ChangeState(_statesStorage.TurnLeft);
-                }
+                ChangeState(_statesDataStorage.PlayerMovementStates.Idle);
             }
-            else if (_currentMovement != Vector2.zero && !_isMoving)
+            else if (CheckIfRotatingOnly())
             {
-                _isRotating = false;
-                _isMoving = true;
-                ChangeState(_statesStorage.Run);
-            }
-            else if (_currentMovement == Vector2.zero)
-            {
-                _isRotating = false;
-                ChangeState(_statesStorage.Idle);
-                _isMoving = false;
+                ChangeState(_currentMovement.x > 0 ? _statesDataStorage.PlayerMovementStates.TurnRight : _statesDataStorage.PlayerMovementStates.TurnLeft);
             }
             else
             {
-                _isRotating = false;
+                ChangeState(_statesDataStorage.PlayerMovementStates.Run);
+            }
+        }
+
+        private bool CheckIfRotatingOnly()
+        {
+            return _currentMovement.y == 0f && _currentMovement.x != 0f;
+        }
+
+        private void OnStateMachineStateChanged(IMovementState newState, StatesDataStorage statesDataStorage)
+        {
+            if (!_isInitialized)
+            {
+                Initialize(statesDataStorage);   
             }
         }
 
         private void ChangeState(IMovementState newState)
         {
+            if (newState == _playerMovementStateMachine.CurrentState) return;
             ChangeStateTo?.Invoke(newState);
         }
     }
 }
-

@@ -3,17 +3,21 @@ using UnityEngine.Events;
 
 namespace Player.States
 {
-    [RequireComponent(typeof(StatesStorage), typeof(CharacterController))]
+    [RequireComponent(typeof(StatesDataStorage), typeof(CharacterController))]
     internal class PlayerMovementStateMachine : MonoBehaviour
     {
         public IMovementState CurrentState { get; private set; }
+        public UnityEvent<IMovementState, StatesDataStorage> StateChanged { get; } = new UnityEvent<IMovementState, StatesDataStorage>();
+        
+        private StatesDataStorage _statesDataStorage;
         
         private void Start()
         {
-            StatesStorage states = GetComponent<StatesStorage>();
-            states.Initialize();
+            StatesDataStorage statesData = GetComponent<StatesDataStorage>();
+            _statesDataStorage = statesData;
+            statesData.Initialize();
             
-            CurrentState = states.Spawn;
+            CurrentState = statesData.PlayerMovementStates.Spawn;
             CurrentState.Enter();
         }
 
@@ -22,6 +26,8 @@ namespace Player.States
             CurrentState.Exit();
             CurrentState = newState;
             CurrentState.Enter();
+            
+            StateChanged?.Invoke(CurrentState, _statesDataStorage);
         }
 
         private void FixedUpdate()

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Player.States
 {
-    public interface IMovementState
+    internal interface IMovementState
     {
         public void Enter();
         public void Update(float deltaTime);

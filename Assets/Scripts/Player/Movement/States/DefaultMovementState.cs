@@ -4,31 +4,27 @@ namespace Player.States
 {
     internal abstract class DefaultMovementState : IMovementState
     {
-        protected Config.PlayerConfig Config;
         protected PlayerInputActions PlayerActions;
-        protected PlayerMovementStateMachine MovementStateMachine;
-        protected PlayerComponents Components;
+        protected StatesDataStorage StatesData;
         
-        protected DefaultMovementState(Config.PlayerConfig playerConfig, PlayerComponents playerComponents)
+        protected DefaultMovementState(StatesDataStorage statesDataStorage)
         {
-            Components = playerComponents;
-            MovementStateMachine = playerComponents.MovementStateMachine;
-            Config = playerConfig;
-
-            PlayerInput playerInput = Components.PlayerInputComponent;
+            StatesData = statesDataStorage;
+            
+            PlayerInput playerInput = statesDataStorage.Components.PlayerInputComponent;
             playerInput.Initialize();
-            PlayerActions = playerInput.EnabledPlayerActions; ;
+            PlayerActions = playerInput.EnabledPlayerActions;
         }
 
         public virtual void Enter()
         {
-            Components.PlayerInputObserver.ChangeStateTo.AddListener(TryChangeState);
+            StatesData.Components.PlayerInputObserver.ChangeStateTo.AddListener(TryChangeState);
         }
         public abstract void Update(float deltaTime);
 
         public virtual void Exit()
         {
-            Components.PlayerInputObserver.ChangeStateTo.RemoveListener(TryChangeState);
+            StatesData.Components.PlayerInputObserver.ChangeStateTo.RemoveListener(TryChangeState);
         }
         
         protected abstract void TryChangeState(IMovementState nextState);

@@ -1,15 +1,8 @@
 fileFormatVersion: 2
-<<<<<<<< Updated upstream:Assets/RPGPP_LT/Scene/rpgpp_lt_scene_1.0/LightingData.asset.meta
 guid: 5954619c6bee1ed4588a6988bf0d408e
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 112000000
-========
-guid: 740f83f69dce7104b8e353c4a5a83740
-NativeFormatImporter:
-  externalObjects: {}
-  mainObjectFileID: 11400000
->>>>>>>> Stashed changes:Assets/Scriptables/PlayerConfig.asset.meta
   userData: 
   assetBundleName: 
   assetBundleVariant: 

@@ -7,36 +7,24 @@ namespace Player.States
 {
     internal class TurnLeftState : DefaultMovementState
     {
-        private InputAction _movementInputAction;
-        
-        public TurnLeftState(Config.PlayerConfig playerConfig, PlayerComponents playerComponents) : base(playerConfig, playerComponents)
+        public TurnLeftState(StatesDataStorage statesDataStorage) : base(statesDataStorage)
         {
         }
 
         public override void Enter()
         {
-            _movementInputAction = Components.PlayerInputComponent.EnabledPlayerActions.Movement.Move;
-           
-            Components.PlayerAnimator.SetTrigger(Config.TurnLeftTriggerName);
+            StatesData.Components.PlayerAnimator.SetTrigger(StatesData.Config.TurnLeftTriggerName);
             
             base.Enter();
         }
 
         public override void Update(float deltaTime)
         {
-            float rotationAngle = _movementInputAction.ReadValue<Vector2>().x * deltaTime;
-            
-            Components.PlayerTransform.Rotate(0f, rotationAngle * Config.RotationSpeedCoefficient, 0f);   
-        }
-
-        public override void Exit()
-        {
-            base.Exit();
         }
 
         protected override void TryChangeState(IMovementState nextState)
         {
-            Components.MovementStateMachine.TransitionToState(nextState);
+            StatesData.Components.MovementStateMachine.TransitionToState(nextState);
         }
     }
 }

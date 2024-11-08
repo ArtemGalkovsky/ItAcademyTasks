@@ -7,13 +7,13 @@ namespace Player.States
     {
         private float _timeSinceSpawnStarts = 0f;
         
-        public SpawnState(Config.PlayerConfig playerConfig, PlayerComponents playerComponents) : base(playerConfig, playerComponents)
+        public SpawnState(StatesDataStorage statesDataStorage) : base(statesDataStorage)
         {
         }
 
         public override void Enter()
         {
-            Components.PlayerAnimator.SetTrigger(Config.SpawnTriggerName);
+            StatesData.Components.PlayerAnimator.SetTrigger(StatesData.Config.SpawnTriggerName);
             base.Enter();
         }
 
@@ -21,15 +21,10 @@ namespace Player.States
         {
             _timeSinceSpawnStarts += deltaTime;
             
-            if (_timeSinceSpawnStarts >= Config.SpawnTimeSeconds)
+            if (_timeSinceSpawnStarts >= StatesData.Config.SpawnTimeSeconds)
             {
-                MovementStateMachine.TransitionToState(Components.StorageStates.Idle);   
+                StatesData.Components.MovementStateMachine.TransitionToState(StatesData.PlayerMovementStates.Idle);   
             }
-        }
-
-        public override void Exit()
-        {
-            base.Exit();
         }
 
         protected override void TryChangeState(IMovementState nextState)

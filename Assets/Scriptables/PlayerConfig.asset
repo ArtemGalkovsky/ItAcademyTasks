@@ -36,6 +36,6 @@ MonoBehaviour:
   JumpAnimationName: Jumping
   HitAnimationName: Hit
   MovementAnimationName: Movement
-  TurnLeftAnimationName: EllenQuickTurnLeft
-  TurnRightAnimationName: EllenQuickTurnRight
+  TurnLeftAnimationName: EllenTurnLeft
+  TurnRightAnimationName: EllenTurnRight
   IdleAnimationName: EllenIdle
