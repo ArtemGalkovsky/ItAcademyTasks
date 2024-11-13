@@ -12,7 +12,7 @@ namespace Player
 
         [SerializeField, Range(0f, 100f)] private float _breathChancePercents = 20f;
         [SerializeField, Range(0f, 100f)] private float _screamChancePercents = 5f;
-        
+
         [SerializeField] private float _musicTimeBetweenScreamersSeconds = 3f;
 
         private AudioSource _audioSource;
@@ -20,6 +20,7 @@ namespace Player
         private PlayerActions _playerInputActions;
         private PlayerJump _playerJump;
         private float _currentTimeSinceLastScream = 0f;
+        private float _lastMusicTime = 0f;
 
         private void Start()
         {
@@ -30,17 +31,18 @@ namespace Player
             _playerInput.Initialize();
             _playerInputActions = _playerInput.EnabledPlayerInputActions;
 
-            CheckChanceValidity();
-
-            PlayBackgroundMusic();
+            ValidateChances();
+            
+            _audioSource.clip = _musicAudio;
+            _audioSource.loop = true; 
         }
 
-        private void CheckChanceValidity()
+        private void ValidateChances()
         {
             float totalChance = _breathChancePercents + _screamChancePercents;
             if (totalChance > 100f)
             {
-                Debug.LogError("Сумма шансов аудиоклипов превышает 100%");
+                Debug.LogError("Sum of chances if bigger than 100%");
             }
         }
 
@@ -48,7 +50,7 @@ namespace Player
         {
             _currentTimeSinceLastScream += Time.fixedDeltaTime;
             
-            if (IsPlayerMoving() && _playerJump.AmIGrounded() && (_audioSource.clip != _walkAudio || !_audioSource.isPlaying))
+            if (IsPlayerMoving() && _playerJump.AmIGrounded() && ((_audioSource.clip != _walkAudio || !_audioSource.isPlaying) || (_audioSource.clip == _screamAudio)))
             {
                 PlayClip(_walkAudio);
                 return;
@@ -62,7 +64,14 @@ namespace Player
             
             if (!_audioSource.isPlaying && _audioSource.clip != _musicAudio)
             {
-                PlayBackgroundMusic();
+                _audioSource.clip = _musicAudio;
+                _audioSource.time = _lastMusicTime;
+                _audioSource.Play();
+            }
+            
+            if (_audioSource.isPlaying && _audioSource.clip == _musicAudio)
+            {
+                _lastMusicTime = _audioSource.time; 
             }
         }
 
@@ -85,22 +94,15 @@ namespace Player
             }
         }
 
-        private bool IsPlayerMoving()  // TODO: find another place to check this
+        private bool IsPlayerMoving()
         {
-            return _playerInputActions.Movement.Move.ReadValue<Vector2>().y != 0;
+            return _playerInputActions.Movement.Move.ReadValue<Vector2>() != Vector2.zero;
         }
 
         private void PlayClip(AudioClip clip)
         {
             _audioSource.clip = clip;
-            _audioSource.loop = false; // Звуки проигрываются один раз
-            _audioSource.Play();
-        }
-
-        private void PlayBackgroundMusic()
-        {
-            _audioSource.clip = _musicAudio;
-            _audioSource.loop = true;
+            _audioSource.loop = false; 
             _audioSource.Play();
         }
     }

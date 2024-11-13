@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,6 +12,8 @@ namespace StairsGenerator
         
         private StairsBox[] _currentStairsPositionsArray;
         private float _stairsBoxHeight;
+        
+        public StairsBox[] Boxes => _stairsBoxes;
         
         private void Awake()
         {
@@ -74,6 +77,14 @@ namespace StairsGenerator
         private void OnPlayerEnterAnotherBox(StairsBox stairsBox)
         {
             ChangeStairsPositions(stairsBox);   
+        }
+
+        private void OnDestroy()
+        {
+            foreach (StairsBox stairs in _stairsBoxes)
+            {
+                stairs?.PlayerMovedToMe.RemoveAllListeners();
+            }
         }
     }
 }

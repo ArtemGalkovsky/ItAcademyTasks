@@ -17,7 +17,7 @@ RenderSettings:
   m_Fog: 1
   m_FogColor: {r: 0, g: 0, b: 0, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.3
+  m_FogDensity: 0.27
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 1}
@@ -491,6 +491,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2026926087}
   - component: {fileID: 2026926086}
+  - component: {fileID: 2026926088}
   m_Layer: 0
   m_Name: StairsGenerator
   m_TagString: Untagged
@@ -526,12 +527,26 @@ Transform:
   m_GameObject: {fileID: 2026926085}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -39.892624, y: 44.85926, z: -0.10311974}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2026926088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2026926085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 565b49c0ea67df74e9f4ff94db3b73b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lightPrefab: {fileID: 7036430391350436081, guid: ac4022dc182a24c4f81ec4ea04f65305, type: 3}
+  _rangeSecondsToSummonLight: {x: 3, y: 6}
 --- !u!1 &2086623238 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1596774257652200427, guid: d84c9996f48f7bc4087baa5cfb79cc39, type: 3}
