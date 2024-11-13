@@ -15,7 +15,7 @@ MonoBehaviour:
   RotationSpeedCoefficient: 100
   MovementSpeedCoefficient: 10
   MaxJumpVelocity: 0.2
-  FallingGravityMultiplier: 0.03
+  FallingGravityMultiplier: 0.06
   GravityY: -9.81
   SpawnTimeSeconds: 2.3
   SpawnTriggerName: Spawn
