@@ -10,6 +10,7 @@ namespace Player
         public string SpawnTriggerName = "Spawn"; 
         public string DeathTriggerName = "Death"; 
         public string HitIndexIntName = "HitIndex";
+        public string HitTriggerName = "Hit";
         public string MovementStateFloatName = "MovementState";
     }
 }

@@ -25,9 +25,16 @@ namespace Player
         {
             Vector2 finalMovement = Vector3.zero;
 
-            while (MovementQueue.Count > 0 && _canMoveNow)
+            while (MovementQueue.Count > 0)
             {
-                finalMovement += MovementQueue.Dequeue();
+                Vector2 movement = MovementQueue.Dequeue();
+                
+                if (_canMoveNow == false)
+                {
+                    continue;   
+                }
+                
+                finalMovement += movement;
             }
             
             _characterController.Move(finalMovement.y * transform.forward);
@@ -40,6 +47,7 @@ namespace Player
             {
                 case PlayerStates.RespawningStart:
                 case PlayerStates.Dead:
+                case PlayerStates.Hit:
                     _canMoveNow = false;
                     break;
                 default:

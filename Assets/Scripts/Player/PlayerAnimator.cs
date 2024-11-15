@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Player
@@ -7,13 +6,14 @@ namespace Player
     internal class PlayerAnimator : MonoBehaviour
     {
         [SerializeField] private float _movementTransitionSpeed = 1f;
+        [SerializeField] private int[] _hitIndexes = { 1, 2, 3, 4 };
         
         private Animator _animator;
         private PlayerController _playerController;
         private PlayerConfig _playerConfig;
 
-        private float _currentMovementValue = 1f;
-        private float _targetMovementValue = 1f;
+        private float _currentMovementValue = 0f;
+        private float _targetMovementValue = 0f;
 
         private void Awake()
         {
@@ -37,7 +37,8 @@ namespace Player
 
         private void OnStateUpdated(PlayerStates state, object data)
         {
-            _targetMovementValue = 1f;
+            _targetMovementValue = 0f;
+            _animator.SetInteger(_playerConfig.HitIndexIntName, -1);
             
             switch (state)
             {
@@ -52,12 +53,7 @@ namespace Player
                 case PlayerStates.Moving:
                     if (data is int movementDirection)
                     {
-                        _targetMovementValue = movementDirection switch
-                        {
-                            1 => 2,
-                            -1 => 0,
-                            _ => 1
-                        };
+                        _targetMovementValue = movementDirection;
                     }
                     else
                     {
@@ -67,6 +63,16 @@ namespace Player
 
                 case PlayerStates.Jumping:
                     _animator.SetTrigger(_playerConfig.JumpTriggerName);
+                    break;
+                case PlayerStates.Hit:
+                    if (_hitIndexes.Length <= 0)
+                    {
+                        Debug.LogError("Hit indexes are emptry.");
+                        break;
+                    }
+                    
+                    _animator.SetInteger(_playerConfig.HitIndexIntName, _hitIndexes[Random.Range(0, _hitIndexes.Length)]);
+                    _animator.SetTrigger(_playerConfig.HitTriggerName);
                     break;
             }
         }

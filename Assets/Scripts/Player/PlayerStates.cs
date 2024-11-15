@@ -9,7 +9,8 @@ namespace Player
         Dead,
         Jumping,
         Moving,
-        Idling
+        Idling,
+        Hit
     }
 }
 

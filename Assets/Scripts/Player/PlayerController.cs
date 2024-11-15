@@ -10,8 +10,6 @@ namespace Player
         
         private PlayerInput _playerInput;
         private CharacterController _characterController;
-
-        private bool _isAlreadyMoving = false;
         
         public delegate void StateHandler(PlayerStates state, object data);
         public event StateHandler PlayerStateChanged;
@@ -24,7 +22,9 @@ namespace Player
             _playerInput.Initialize();
 
             _playerInput.EnabledPlayerInputActions.Spawn.Spawn.performed += Spawn;
+            _playerInput.EnabledPlayerInputActions.Death.Die.performed += _ => PlayerStateChanged?.Invoke(PlayerStates.Dead, null);
             _playerInput.EnabledPlayerInputActions.Jump.Jump.performed += JumpIfCan;
+            _playerInput.EnabledPlayerInputActions.Hit.Hit.performed += Hit;
             SpawnPlayer();
 
             PlayerStateChanged += StateUpdated;
@@ -47,6 +47,14 @@ namespace Player
             } else if (PlayerCurrentState == PlayerStates.Moving)
             {
                 PlayerStateChanged?.Invoke(PlayerStates.Idling, null);
+            }
+        }
+
+        private void Hit(InputAction.CallbackContext context)
+        {
+            if (PlayerCurrentState is PlayerStates.Moving or PlayerStates.Idling or PlayerStates.RespawningEnd)
+            {
+                PlayerStateChanged?.Invoke(PlayerStates.Hit, null);
             }
         }
 
@@ -76,12 +84,12 @@ namespace Player
             PlayerStateChanged?.Invoke(PlayerStates.RespawningEnd, null);
         }
 
-        private void OnPlayerDeath()
+        private void OnJumpEnds()
         {
-            PlayerStateChanged?.Invoke(PlayerStates.Dead, null);
+            PlayerStateChanged?.Invoke(PlayerStates.Idling, null);
         }
 
-        private void OnJumpEnds()
+        private void OnHitEnds()
         {
             PlayerStateChanged?.Invoke(PlayerStates.Idling, null);
         }
