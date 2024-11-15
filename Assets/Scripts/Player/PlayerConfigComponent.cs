@@ -2,11 +2,19 @@ using UnityEngine;
 
 namespace Player
 {
-    public class PlayerConfigComponent : MonoBehaviour
+    internal class PlayerConfigComponent : MonoBehaviour
     {
-        [SerializeField] private Config.PlayerConfig _config;
+        [SerializeField] private PlayerConfig _playerConfig;
+        
+        public PlayerConfig PlayerConfig => _playerConfig;
 
-        public Config.PlayerConfig PlayerCfg => _config;
+        private void Awake()
+        {
+            if (_playerConfig == null)
+            {
+                Debug.LogError("PlayerConfig is null");
+            }
+        }
     }
 }
 

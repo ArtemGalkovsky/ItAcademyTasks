@@ -9,33 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a2469d81213f5f448421b9a2f815631, type: 3}
+  m_Script: {fileID: 11500000, guid: 11b01af6a13a7564486fd3e5016b5d9e, type: 3}
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
-  RotationSpeedCoefficient: 100
-  MovementSpeedCoefficient: 10
-  MaxJumpVelocity: 0.2
-  FallingGravityMultiplier: 0.06
-  GravityY: -9.81
-  SpawnTimeSeconds: 2.3
   SpawnTriggerName: Spawn
   DeathTriggerName: Death
-  JumpTriggerName: Jumping
-  TurnLeftTriggerName: TurnLeft
-  TurnRightTriggerName: TurnRight
-  MoveTriggerName: Move
-  IdleTriggerName: Idle
-  HitTriggersNames:
-  - Hit1
-  - Hit2
-  - Hit3
-  - Hit4
-  - Hit5
-  DeathAnimationName: EllenDeath
-  SpawnAnimationName: EllenSpawn
-  JumpAnimationName: EllenJumpTakeOff
-  HitAnimationName: Hit
-  MovementAnimationName: Movement
-  TurnLeftAnimationName: EllenTurnLeft
-  TurnRightAnimationName: EllenTurnRight
-  IdleAnimationName: EllenIdle
+  CanMoveBoolName: CanMove
+  HitIndexIntName: HitIndex
+  MovementStateIntName: MovementState

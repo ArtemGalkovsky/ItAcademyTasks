@@ -2,9 +2,9 @@ using UnityEngine;
 
 namespace Player
 {
-    public class PlayerInput : MonoBehaviour
+    internal class PlayerInput : MonoBehaviour
     {
-        public PlayerInputActions EnabledPlayerActions {get; private set;}
+        public PlayerInputActions EnabledPlayerInputActions { get; private set; }
 
         private void Awake()
         {
@@ -13,21 +13,22 @@ namespace Player
 
         public void Initialize()
         {
-            if (EnabledPlayerActions != null)
+            if (EnabledPlayerInputActions != null)
             {
                 return;
             }
             
-            PlayerInputActions playerActions = new PlayerInputActions();   
-            playerActions.Enable();
-        
-            EnabledPlayerActions = playerActions;
+            PlayerInputActions playerInputActions = new PlayerInputActions();
+            playerInputActions.Enable();
+            
+            EnabledPlayerInputActions = playerInputActions;
         }
 
         private void OnDestroy()
         {
-            EnabledPlayerActions?.Disable();
+            EnabledPlayerInputActions?.Disable();
         }
     }
-
 }
+
+
