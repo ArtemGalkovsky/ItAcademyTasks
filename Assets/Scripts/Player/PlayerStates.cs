@@ -10,7 +10,8 @@ namespace Player
         Jumping,
         Moving,
         Idling,
-        Hit
+        Hit,
+        RotationOnSpot
     }
 }
 

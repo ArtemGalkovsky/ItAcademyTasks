@@ -40,11 +40,17 @@ namespace Player
             Vector2 movement = _playerInput.EnabledPlayerInputActions.Movement.Move.ReadValue<Vector2>();
             if (movement.sqrMagnitude > 0)
             {
-                if (PlayerCurrentState is PlayerStates.Idling or PlayerStates.RespawningEnd)
+                if (PlayerCurrentState is PlayerStates.Idling or PlayerStates.RespawningEnd or PlayerStates.Moving && movement.x != 0 && movement.y == 0)
+                {
+                    PlayerStateChanged?.Invoke(PlayerStates.RotationOnSpot, movement.x > 0 ? 1 : -1);
+                }
+                else if (PlayerCurrentState is PlayerStates.Idling or PlayerStates.RespawningEnd or PlayerStates.RotationOnSpot && movement.y != 0)
                 {
                     PlayerStateChanged?.Invoke(PlayerStates.Moving, movement.y > 0 ? 1 : -1);
-                }
-            } else if (PlayerCurrentState == PlayerStates.Moving)
+                }   
+                    
+                
+            } else if (PlayerCurrentState is PlayerStates.Moving or PlayerStates.RotationOnSpot)
             {
                 PlayerStateChanged?.Invoke(PlayerStates.Idling, null);
             }

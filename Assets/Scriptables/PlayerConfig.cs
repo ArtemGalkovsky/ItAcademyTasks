@@ -12,6 +12,8 @@ namespace Player
         public string HitIndexIntName = "HitIndex";
         public string HitTriggerName = "Hit";
         public string MovementStateFloatName = "MovementState";
+        public string RotationFloatName = "Rotation";
+        public string RotationBoolName = "IsRotating";
     }
 }
 

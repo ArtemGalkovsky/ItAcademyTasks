@@ -5066,9 +5066,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 164035469009491679, guid: 796f7145fed673c40a93d5faf2f69bf0, type: 3}
+      propertyPath: _rotationTransitionSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3255103313512987640, guid: 796f7145fed673c40a93d5faf2f69bf0, type: 3}
       propertyPath: _jumpMotion
-      value: 0.13
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 3282186325257462546, guid: 796f7145fed673c40a93d5faf2f69bf0, type: 3}
       propertyPath: _fallingMultiplier
