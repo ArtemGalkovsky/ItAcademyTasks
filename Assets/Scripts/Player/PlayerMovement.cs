@@ -70,16 +70,10 @@ namespace Player
                 velocity.y = _rigidbody.linearVelocity.y;
             }
 
-            if (Mathf.Abs(velocity.x) > 0f || Mathf.Abs(velocity.z) > 0)
-            {
-                _isMoving = true;
-            }
-            else
-            {
-                _isMoving = false;
-            }
+            _isMoving = (transform.position - _previousPosition).sqrMagnitude > 0.01f;
             
             _rigidbody.linearVelocity = velocity;
+            _previousPosition = transform.position;
         }
 
         private void Rotate()
