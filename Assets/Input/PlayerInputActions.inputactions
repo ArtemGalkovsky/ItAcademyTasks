@@ -3,12 +3,12 @@
     "maps": [
         {
             "name": "Movement",
-            "id": "e02447ed-74d8-445c-bab9-c485dad5400f",
+            "id": "ab71a790-b819-49d7-84cb-4aa596afa9dd",
             "actions": [
                 {
                     "name": "Move",
                     "type": "Value",
-                    "id": "a06a285e-7bcd-41b4-b9e2-0adfe6ae4f8e",
+                    "id": "c58a13dd-2b69-4d6e-9b50-60349a6c3a17",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -18,7 +18,7 @@
             "bindings": [
                 {
                     "name": "2D Vector",
-                    "id": "83e84a3a-8f53-42db-bee0-ad964d1d46b9",
+                    "id": "4fc33c77-b539-4f27-9c97-468842097e61",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
@@ -29,7 +29,7 @@
                 },
                 {
                     "name": "up",
-                    "id": "0fcdbab3-b3af-4e1e-9de9-ca258fffcb55",
+                    "id": "b1010fa1-3db4-4067-a15d-c3dea658c1e7",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
@@ -40,7 +40,7 @@
                 },
                 {
                     "name": "down",
-                    "id": "b923e6fa-ecb7-419c-99a8-a2b2c05be19a",
+                    "id": "62fcd513-c3b7-4883-b8fd-286a60231d99",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
@@ -51,7 +51,7 @@
                 },
                 {
                     "name": "left",
-                    "id": "c423ba4a-e210-4394-9b54-d466da8a79ff",
+                    "id": "bb92dd71-5904-4d15-b797-44879aba279c",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
@@ -62,7 +62,7 @@
                 },
                 {
                     "name": "right",
-                    "id": "499f00a9-9df8-4952-a7c5-88bc2f26ee0c",
+                    "id": "4c139a4d-b8ee-4e13-91a3-448a78e84460",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
@@ -74,13 +74,41 @@
             ]
         },
         {
+            "name": "Rotation",
+            "id": "d9ee9555-c060-4698-982a-a765e1f1c346",
+            "actions": [
+                {
+                    "name": "Rotate",
+                    "type": "Value",
+                    "id": "eae392a7-222a-47e3-954a-3921921b4fe6",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "76a1707b-bc50-476a-912c-08e61402b502",
+                    "path": "<Pointer>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
             "name": "Jump",
-            "id": "108ed122-e323-47e7-849b-7763cee8c9bc",
+            "id": "2cebac36-68c6-4f45-825c-9bd4c55a379e",
             "actions": [
                 {
                     "name": "Jump",
                     "type": "Button",
-                    "id": "9be34498-c72a-4042-8e86-e47b68e4be68",
+                    "id": "e211d830-901f-4c60-a040-8d4ade4a46d2",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -90,96 +118,12 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "7f87284b-56e0-4966-a6f9-06de4b5a46ef",
+                    "id": "b1297dad-bf13-4955-ad17-b95166d5b3ef",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Hit",
-            "id": "723f99ec-30b5-4c12-b555-292605e1340a",
-            "actions": [
-                {
-                    "name": "Hit",
-                    "type": "Button",
-                    "id": "9639284b-566a-4e2f-8ff0-91c81ebd996b",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "a68a986d-bf41-4233-a294-0ba3e68b6e6b",
-                    "path": "<Pointer>/press",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Hit",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Spawn",
-            "id": "d1f34881-c90c-4499-b69f-530e379eadb0",
-            "actions": [
-                {
-                    "name": "Spawn",
-                    "type": "Button",
-                    "id": "d26b5a42-405c-4e63-96ca-88f2310291ee",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "3687f367-a552-447a-a308-8c382bfb25aa",
-                    "path": "<Keyboard>/r",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Spawn",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Death",
-            "id": "07f872e4-0d74-43f9-8807-2b16c16e5e91",
-            "actions": [
-                {
-                    "name": "Die",
-                    "type": "Button",
-                    "id": "c134a005-e565-4cc3-8875-c93e5b5ef41f",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "bd18acca-3526-470e-890b-3aa178b879ac",
-                    "path": "<Keyboard>/x",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Die",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

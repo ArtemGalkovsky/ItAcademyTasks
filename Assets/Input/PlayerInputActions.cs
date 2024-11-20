@@ -25,12 +25,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     ""maps"": [
         {
             ""name"": ""Movement"",
-            ""id"": ""e02447ed-74d8-445c-bab9-c485dad5400f"",
+            ""id"": ""ab71a790-b819-49d7-84cb-4aa596afa9dd"",
             ""actions"": [
                 {
                     ""name"": ""Move"",
                     ""type"": ""Value"",
-                    ""id"": ""a06a285e-7bcd-41b4-b9e2-0adfe6ae4f8e"",
+                    ""id"": ""c58a13dd-2b69-4d6e-9b50-60349a6c3a17"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -40,7 +40,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": ""2D Vector"",
-                    ""id"": ""83e84a3a-8f53-42db-bee0-ad964d1d46b9"",
+                    ""id"": ""4fc33c77-b539-4f27-9c97-468842097e61"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -51,7 +51,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""up"",
-                    ""id"": ""0fcdbab3-b3af-4e1e-9de9-ca258fffcb55"",
+                    ""id"": ""b1010fa1-3db4-4067-a15d-c3dea658c1e7"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -62,7 +62,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""down"",
-                    ""id"": ""b923e6fa-ecb7-419c-99a8-a2b2c05be19a"",
+                    ""id"": ""62fcd513-c3b7-4883-b8fd-286a60231d99"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -73,7 +73,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""left"",
-                    ""id"": ""c423ba4a-e210-4394-9b54-d466da8a79ff"",
+                    ""id"": ""bb92dd71-5904-4d15-b797-44879aba279c"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -84,7 +84,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""right"",
-                    ""id"": ""499f00a9-9df8-4952-a7c5-88bc2f26ee0c"",
+                    ""id"": ""4c139a4d-b8ee-4e13-91a3-448a78e84460"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -96,13 +96,41 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             ]
         },
         {
+            ""name"": ""Rotation"",
+            ""id"": ""d9ee9555-c060-4698-982a-a765e1f1c346"",
+            ""actions"": [
+                {
+                    ""name"": ""Rotate"",
+                    ""type"": ""Value"",
+                    ""id"": ""eae392a7-222a-47e3-954a-3921921b4fe6"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""76a1707b-bc50-476a-912c-08e61402b502"",
+                    ""path"": ""<Pointer>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
             ""name"": ""Jump"",
-            ""id"": ""108ed122-e323-47e7-849b-7763cee8c9bc"",
+            ""id"": ""2cebac36-68c6-4f45-825c-9bd4c55a379e"",
             ""actions"": [
                 {
                     ""name"": ""Jump"",
                     ""type"": ""Button"",
-                    ""id"": ""9be34498-c72a-4042-8e86-e47b68e4be68"",
+                    ""id"": ""e211d830-901f-4c60-a040-8d4ade4a46d2"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -112,96 +140,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""7f87284b-56e0-4966-a6f9-06de4b5a46ef"",
+                    ""id"": ""b1297dad-bf13-4955-ad17-b95166d5b3ef"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""Hit"",
-            ""id"": ""723f99ec-30b5-4c12-b555-292605e1340a"",
-            ""actions"": [
-                {
-                    ""name"": ""Hit"",
-                    ""type"": ""Button"",
-                    ""id"": ""9639284b-566a-4e2f-8ff0-91c81ebd996b"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""a68a986d-bf41-4233-a294-0ba3e68b6e6b"",
-                    ""path"": ""<Pointer>/press"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Hit"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""Spawn"",
-            ""id"": ""d1f34881-c90c-4499-b69f-530e379eadb0"",
-            ""actions"": [
-                {
-                    ""name"": ""Spawn"",
-                    ""type"": ""Button"",
-                    ""id"": ""d26b5a42-405c-4e63-96ca-88f2310291ee"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""3687f367-a552-447a-a308-8c382bfb25aa"",
-                    ""path"": ""<Keyboard>/r"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Spawn"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""Death"",
-            ""id"": ""07f872e4-0d74-43f9-8807-2b16c16e5e91"",
-            ""actions"": [
-                {
-                    ""name"": ""Die"",
-                    ""type"": ""Button"",
-                    ""id"": ""c134a005-e565-4cc3-8875-c93e5b5ef41f"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""bd18acca-3526-470e-890b-3aa178b879ac"",
-                    ""path"": ""<Keyboard>/x"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Die"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -213,27 +157,19 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         // Movement
         m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
         m_Movement_Move = m_Movement.FindAction("Move", throwIfNotFound: true);
+        // Rotation
+        m_Rotation = asset.FindActionMap("Rotation", throwIfNotFound: true);
+        m_Rotation_Rotate = m_Rotation.FindAction("Rotate", throwIfNotFound: true);
         // Jump
         m_Jump = asset.FindActionMap("Jump", throwIfNotFound: true);
         m_Jump_Jump = m_Jump.FindAction("Jump", throwIfNotFound: true);
-        // Hit
-        m_Hit = asset.FindActionMap("Hit", throwIfNotFound: true);
-        m_Hit_Hit = m_Hit.FindAction("Hit", throwIfNotFound: true);
-        // Spawn
-        m_Spawn = asset.FindActionMap("Spawn", throwIfNotFound: true);
-        m_Spawn_Spawn = m_Spawn.FindAction("Spawn", throwIfNotFound: true);
-        // Death
-        m_Death = asset.FindActionMap("Death", throwIfNotFound: true);
-        m_Death_Die = m_Death.FindAction("Die", throwIfNotFound: true);
     }
 
     ~@PlayerInputActions()
     {
         UnityEngine.Debug.Assert(!m_Movement.enabled, "This will cause a leak and performance issues, PlayerInputActions.Movement.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Rotation.enabled, "This will cause a leak and performance issues, PlayerInputActions.Rotation.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Jump.enabled, "This will cause a leak and performance issues, PlayerInputActions.Jump.Disable() has not been called.");
-        UnityEngine.Debug.Assert(!m_Hit.enabled, "This will cause a leak and performance issues, PlayerInputActions.Hit.Disable() has not been called.");
-        UnityEngine.Debug.Assert(!m_Spawn.enabled, "This will cause a leak and performance issues, PlayerInputActions.Spawn.Disable() has not been called.");
-        UnityEngine.Debug.Assert(!m_Death.enabled, "This will cause a leak and performance issues, PlayerInputActions.Death.Disable() has not been called.");
     }
 
     public void Dispose()
@@ -338,6 +274,52 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     }
     public MovementActions @Movement => new MovementActions(this);
 
+    // Rotation
+    private readonly InputActionMap m_Rotation;
+    private List<IRotationActions> m_RotationActionsCallbackInterfaces = new List<IRotationActions>();
+    private readonly InputAction m_Rotation_Rotate;
+    public struct RotationActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public RotationActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Rotate => m_Wrapper.m_Rotation_Rotate;
+        public InputActionMap Get() { return m_Wrapper.m_Rotation; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(RotationActions set) { return set.Get(); }
+        public void AddCallbacks(IRotationActions instance)
+        {
+            if (instance == null || m_Wrapper.m_RotationActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_RotationActionsCallbackInterfaces.Add(instance);
+            @Rotate.started += instance.OnRotate;
+            @Rotate.performed += instance.OnRotate;
+            @Rotate.canceled += instance.OnRotate;
+        }
+
+        private void UnregisterCallbacks(IRotationActions instance)
+        {
+            @Rotate.started -= instance.OnRotate;
+            @Rotate.performed -= instance.OnRotate;
+            @Rotate.canceled -= instance.OnRotate;
+        }
+
+        public void RemoveCallbacks(IRotationActions instance)
+        {
+            if (m_Wrapper.m_RotationActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IRotationActions instance)
+        {
+            foreach (var item in m_Wrapper.m_RotationActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_RotationActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public RotationActions @Rotation => new RotationActions(this);
+
     // Jump
     private readonly InputActionMap m_Jump;
     private List<IJumpActions> m_JumpActionsCallbackInterfaces = new List<IJumpActions>();
@@ -383,162 +365,16 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         }
     }
     public JumpActions @Jump => new JumpActions(this);
-
-    // Hit
-    private readonly InputActionMap m_Hit;
-    private List<IHitActions> m_HitActionsCallbackInterfaces = new List<IHitActions>();
-    private readonly InputAction m_Hit_Hit;
-    public struct HitActions
-    {
-        private @PlayerInputActions m_Wrapper;
-        public HitActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Hit => m_Wrapper.m_Hit_Hit;
-        public InputActionMap Get() { return m_Wrapper.m_Hit; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(HitActions set) { return set.Get(); }
-        public void AddCallbacks(IHitActions instance)
-        {
-            if (instance == null || m_Wrapper.m_HitActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_HitActionsCallbackInterfaces.Add(instance);
-            @Hit.started += instance.OnHit;
-            @Hit.performed += instance.OnHit;
-            @Hit.canceled += instance.OnHit;
-        }
-
-        private void UnregisterCallbacks(IHitActions instance)
-        {
-            @Hit.started -= instance.OnHit;
-            @Hit.performed -= instance.OnHit;
-            @Hit.canceled -= instance.OnHit;
-        }
-
-        public void RemoveCallbacks(IHitActions instance)
-        {
-            if (m_Wrapper.m_HitActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        public void SetCallbacks(IHitActions instance)
-        {
-            foreach (var item in m_Wrapper.m_HitActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_HitActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    public HitActions @Hit => new HitActions(this);
-
-    // Spawn
-    private readonly InputActionMap m_Spawn;
-    private List<ISpawnActions> m_SpawnActionsCallbackInterfaces = new List<ISpawnActions>();
-    private readonly InputAction m_Spawn_Spawn;
-    public struct SpawnActions
-    {
-        private @PlayerInputActions m_Wrapper;
-        public SpawnActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Spawn => m_Wrapper.m_Spawn_Spawn;
-        public InputActionMap Get() { return m_Wrapper.m_Spawn; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(SpawnActions set) { return set.Get(); }
-        public void AddCallbacks(ISpawnActions instance)
-        {
-            if (instance == null || m_Wrapper.m_SpawnActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_SpawnActionsCallbackInterfaces.Add(instance);
-            @Spawn.started += instance.OnSpawn;
-            @Spawn.performed += instance.OnSpawn;
-            @Spawn.canceled += instance.OnSpawn;
-        }
-
-        private void UnregisterCallbacks(ISpawnActions instance)
-        {
-            @Spawn.started -= instance.OnSpawn;
-            @Spawn.performed -= instance.OnSpawn;
-            @Spawn.canceled -= instance.OnSpawn;
-        }
-
-        public void RemoveCallbacks(ISpawnActions instance)
-        {
-            if (m_Wrapper.m_SpawnActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        public void SetCallbacks(ISpawnActions instance)
-        {
-            foreach (var item in m_Wrapper.m_SpawnActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_SpawnActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    public SpawnActions @Spawn => new SpawnActions(this);
-
-    // Death
-    private readonly InputActionMap m_Death;
-    private List<IDeathActions> m_DeathActionsCallbackInterfaces = new List<IDeathActions>();
-    private readonly InputAction m_Death_Die;
-    public struct DeathActions
-    {
-        private @PlayerInputActions m_Wrapper;
-        public DeathActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Die => m_Wrapper.m_Death_Die;
-        public InputActionMap Get() { return m_Wrapper.m_Death; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(DeathActions set) { return set.Get(); }
-        public void AddCallbacks(IDeathActions instance)
-        {
-            if (instance == null || m_Wrapper.m_DeathActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_DeathActionsCallbackInterfaces.Add(instance);
-            @Die.started += instance.OnDie;
-            @Die.performed += instance.OnDie;
-            @Die.canceled += instance.OnDie;
-        }
-
-        private void UnregisterCallbacks(IDeathActions instance)
-        {
-            @Die.started -= instance.OnDie;
-            @Die.performed -= instance.OnDie;
-            @Die.canceled -= instance.OnDie;
-        }
-
-        public void RemoveCallbacks(IDeathActions instance)
-        {
-            if (m_Wrapper.m_DeathActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        public void SetCallbacks(IDeathActions instance)
-        {
-            foreach (var item in m_Wrapper.m_DeathActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_DeathActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    public DeathActions @Death => new DeathActions(this);
     public interface IMovementActions
     {
         void OnMove(InputAction.CallbackContext context);
     }
+    public interface IRotationActions
+    {
+        void OnRotate(InputAction.CallbackContext context);
+    }
     public interface IJumpActions
     {
         void OnJump(InputAction.CallbackContext context);
-    }
-    public interface IHitActions
-    {
-        void OnHit(InputAction.CallbackContext context);
-    }
-    public interface ISpawnActions
-    {
-        void OnSpawn(InputAction.CallbackContext context);
-    }
-    public interface IDeathActions
-    {
-        void OnDie(InputAction.CallbackContext context);
     }
 }
