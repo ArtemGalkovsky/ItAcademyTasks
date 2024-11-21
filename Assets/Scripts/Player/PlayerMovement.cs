@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Player
 {
@@ -9,7 +10,8 @@ namespace Player
         [SerializeField] private float _rotationSensitivity = 1f;
         [SerializeField] private float _maxSlopeAngle = 15f;
         [SerializeField] private float _playerSlopeCheckRaycastLength = 1.3f;
-        
+        [SerializeField] private float _minSqrMovementToTrigger = 0.001f;
+  
         private PlayerInput _playerInput;
         private Rigidbody _rigidbody;
         private RaycastHit _slopeHit;
@@ -70,7 +72,7 @@ namespace Player
                 velocity.y = _rigidbody.linearVelocity.y;
             }
 
-            _isMoving = (transform.position - _previousPosition).sqrMagnitude > 0.01f;
+            _isMoving = (transform.position - _previousPosition).sqrMagnitude > _minSqrMovementToTrigger;
             
             _rigidbody.linearVelocity = velocity;
             _previousPosition = transform.position;
