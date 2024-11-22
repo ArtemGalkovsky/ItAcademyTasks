@@ -25,13 +25,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     ""maps"": [
         {
             ""name"": ""Movement"",
-            ""id"": ""ab71a790-b819-49d7-84cb-4aa596afa9dd"",
+            ""id"": ""1d3c13a8-bb29-4d18-8fde-03677258473a"",
             ""actions"": [
                 {
                     ""name"": ""Move"",
                     ""type"": ""Value"",
-                    ""id"": ""c58a13dd-2b69-4d6e-9b50-60349a6c3a17"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""id"": ""1466b295-3785-40c3-8fd1-522f4c86d771"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -39,9 +39,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             ],
             ""bindings"": [
                 {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""4fc33c77-b539-4f27-9c97-468842097e61"",
-                    ""path"": ""2DVector"",
+                    ""name"": ""1D Axis"",
+                    ""id"": ""74a91c02-2a52-4531-a46e-483b7528f031"",
+                    ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -50,30 +50,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""up"",
-                    ""id"": ""b1010fa1-3db4-4067-a15d-c3dea658c1e7"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""62fcd513-c3b7-4883-b8fd-286a60231d99"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""bb92dd71-5904-4d15-b797-44879aba279c"",
+                    ""name"": ""negative"",
+                    ""id"": ""8c4c9d00-c726-4d4f-bf09-ed71e476a3b9"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -83,8 +61,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""right"",
-                    ""id"": ""4c139a4d-b8ee-4e13-91a3-448a78e84460"",
+                    ""name"": ""positive"",
+                    ""id"": ""001102a5-c058-4998-82c8-71ecba725513"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -96,41 +74,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             ]
         },
         {
-            ""name"": ""Rotation"",
-            ""id"": ""d9ee9555-c060-4698-982a-a765e1f1c346"",
-            ""actions"": [
-                {
-                    ""name"": ""Rotate"",
-                    ""type"": ""Value"",
-                    ""id"": ""eae392a7-222a-47e3-954a-3921921b4fe6"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""76a1707b-bc50-476a-912c-08e61402b502"",
-                    ""path"": ""<Pointer>/delta"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Rotate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
             ""name"": ""Jump"",
-            ""id"": ""2cebac36-68c6-4f45-825c-9bd4c55a379e"",
+            ""id"": ""af4f186b-0c30-4368-b82b-3f1e553afb5b"",
             ""actions"": [
                 {
                     ""name"": ""Jump"",
                     ""type"": ""Button"",
-                    ""id"": ""e211d830-901f-4c60-a040-8d4ade4a46d2"",
+                    ""id"": ""2546470a-5b09-4d6b-9d49-8344786151cd"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -140,7 +90,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""b1297dad-bf13-4955-ad17-b95166d5b3ef"",
+                    ""id"": ""a407f32b-761c-437d-a8a1-6bf47ef39d21"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -157,9 +107,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         // Movement
         m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
         m_Movement_Move = m_Movement.FindAction("Move", throwIfNotFound: true);
-        // Rotation
-        m_Rotation = asset.FindActionMap("Rotation", throwIfNotFound: true);
-        m_Rotation_Rotate = m_Rotation.FindAction("Rotate", throwIfNotFound: true);
         // Jump
         m_Jump = asset.FindActionMap("Jump", throwIfNotFound: true);
         m_Jump_Jump = m_Jump.FindAction("Jump", throwIfNotFound: true);
@@ -168,7 +115,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     ~@PlayerInputActions()
     {
         UnityEngine.Debug.Assert(!m_Movement.enabled, "This will cause a leak and performance issues, PlayerInputActions.Movement.Disable() has not been called.");
-        UnityEngine.Debug.Assert(!m_Rotation.enabled, "This will cause a leak and performance issues, PlayerInputActions.Rotation.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Jump.enabled, "This will cause a leak and performance issues, PlayerInputActions.Jump.Disable() has not been called.");
     }
 
@@ -274,52 +220,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     }
     public MovementActions @Movement => new MovementActions(this);
 
-    // Rotation
-    private readonly InputActionMap m_Rotation;
-    private List<IRotationActions> m_RotationActionsCallbackInterfaces = new List<IRotationActions>();
-    private readonly InputAction m_Rotation_Rotate;
-    public struct RotationActions
-    {
-        private @PlayerInputActions m_Wrapper;
-        public RotationActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Rotate => m_Wrapper.m_Rotation_Rotate;
-        public InputActionMap Get() { return m_Wrapper.m_Rotation; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(RotationActions set) { return set.Get(); }
-        public void AddCallbacks(IRotationActions instance)
-        {
-            if (instance == null || m_Wrapper.m_RotationActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_RotationActionsCallbackInterfaces.Add(instance);
-            @Rotate.started += instance.OnRotate;
-            @Rotate.performed += instance.OnRotate;
-            @Rotate.canceled += instance.OnRotate;
-        }
-
-        private void UnregisterCallbacks(IRotationActions instance)
-        {
-            @Rotate.started -= instance.OnRotate;
-            @Rotate.performed -= instance.OnRotate;
-            @Rotate.canceled -= instance.OnRotate;
-        }
-
-        public void RemoveCallbacks(IRotationActions instance)
-        {
-            if (m_Wrapper.m_RotationActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        public void SetCallbacks(IRotationActions instance)
-        {
-            foreach (var item in m_Wrapper.m_RotationActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_RotationActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    public RotationActions @Rotation => new RotationActions(this);
-
     // Jump
     private readonly InputActionMap m_Jump;
     private List<IJumpActions> m_JumpActionsCallbackInterfaces = new List<IJumpActions>();
@@ -368,10 +268,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     public interface IMovementActions
     {
         void OnMove(InputAction.CallbackContext context);
-    }
-    public interface IRotationActions
-    {
-        void OnRotate(InputAction.CallbackContext context);
     }
     public interface IJumpActions
     {

@@ -3,9 +3,9 @@ using UnityEngine;
 namespace Player
 {
     internal class PlayerInput : MonoBehaviour
-    {  
+    {
         public PlayerInputActions EnabledPlayerInputActions { get; private set; }
-
+        
         private void Awake()
         {
             Initialize();
@@ -18,20 +18,17 @@ namespace Player
                 return;
             }
             
-            var playerActions = new PlayerInputActions();
-            playerActions.Enable();
+            PlayerInputActions playerInputActions = new PlayerInputActions();
+            playerInputActions.Enable(); 
             
-            EnabledPlayerInputActions = playerActions;
-        }
-
-        public Vector2 GetMousePositionDelta()
-        {
-            return EnabledPlayerInputActions.Rotation.Rotate.ReadValue<Vector2>();
+            EnabledPlayerInputActions = playerInputActions;
         }
 
         private void OnDestroy()
         {
             EnabledPlayerInputActions?.Disable();
         }
-    }
+    }        
 }
+    
+
