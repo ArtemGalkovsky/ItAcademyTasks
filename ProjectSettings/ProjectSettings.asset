@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 28
-  productGUID: 302cb2f2147e1b949b888683719232c1
+  productGUID: 28262b35e792f5443a35d01f8a09e76f
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: Lesson 9
+  productName: Test1
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -609,14 +609,14 @@ PlayerSettings:
   editorAssembliesCompatibilityLevel: 1
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: Lesson 9
+  metroPackageName: Test1
   metroPackageVersion: 
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
   metroCertificateIssuer: 
   metroCertificateNotAfter: 0000000000000000
-  metroApplicationDescription: Lesson 9
+  metroApplicationDescription: Test1
   wsaImages: {}
   metroTileShortName: 
   metroTileShowName: 0
@@ -687,10 +687,10 @@ PlayerSettings:
   captureStartupLogs: {}
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 9b81487e-03c3-418b-90fd-7670ac7e384d
+  cloudProjectId: fd88fef5-df45-4ee9-b171-cb0eac739549
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Lesson 9
+  projectName: Test1
   organizationId: liteop
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
